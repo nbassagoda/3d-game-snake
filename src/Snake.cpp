@@ -40,7 +40,7 @@ void Snake::TimeEvolution(float t) {
 	_posicion.posX += t*sin(anguloRad_Actual);
 	_posicion.posZ += t*cos(anguloRad_Actual);
 	if((_posicion.posX < -Field_Limit) || (_posicion.posZ < -Field_Limit) || (Field_Limit < _posicion.posX) || (Field_Limit < _posicion.posZ)) {
-		EstadoJuego::get_Instance()->AgregarAccionLisa(A_Perder);
+		EstadoJuego::get_Instance()->AgregarAccionLisa(TO_LOSE);
 	}
 }
 
@@ -105,7 +105,7 @@ bool Snake::CollisionAction() {
 	map<int, Clase_Objeto>::iterator it ;
 	for(it = _Coliciones->begin(); it != _Coliciones->end(); ++it)
 		if(it->second == C_APPLE) {
-			EstadoJuego::get_Instance()->AgregarAccionLisa(A_BONUS_Point);
+			EstadoJuego::get_Instance()->AgregarAccionLisa(TO_BONUS_POINT);
 		}
 		return false;
 }

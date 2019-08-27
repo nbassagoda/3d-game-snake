@@ -209,31 +209,31 @@ void Menu::AccionCamara(bool der) {
 	if (der) {
 		switch(EstadoJuego::get_Instance()->Camera) {
 			case CAMARA_FIJA:
-				EstadoJuego::get_Instance()->Camera = CAMARA_MOUS;
+				EstadoJuego::get_Instance()->Camera = MOUSE;
 			break;
-			case CAMARA_MOUS:
-				EstadoJuego::get_Instance()->Camera = CAMAR_SEGUIR;
+			case MOUSE:
+				EstadoJuego::get_Instance()->Camera = FOLLOW;
 			break;
-			case CAMAR_SEGUIR:
-				EstadoJuego::get_Instance()->Camera = CAMARA_P1;
+			case FOLLOW:
+				EstadoJuego::get_Instance()->Camera = FIRST_PERSON;
 			break;
-			case CAMARA_P1:
+			case FIRST_PERSON:
 				EstadoJuego::get_Instance()->Camera = CAMARA_FIJA;
 			break;
 		}
     } else {
 		switch(EstadoJuego::get_Instance()->Camera) {
 			case CAMARA_FIJA:
-				EstadoJuego::get_Instance()->Camera = CAMARA_P1;
+				EstadoJuego::get_Instance()->Camera = FIRST_PERSON;
 			break;
-			case CAMARA_MOUS:
+			case MOUSE:
 				EstadoJuego::get_Instance()->Camera = CAMARA_FIJA;
 			break;
-			case CAMAR_SEGUIR:
-				EstadoJuego::get_Instance()->Camera = CAMARA_MOUS;
+			case FOLLOW:
+				EstadoJuego::get_Instance()->Camera = MOUSE;
 			break;
-			case CAMARA_P1:
-				EstadoJuego::get_Instance()->Camera = CAMAR_SEGUIR;
+			case FIRST_PERSON:
+				EstadoJuego::get_Instance()->Camera = FOLLOW;
 			break;
 		}
 	}

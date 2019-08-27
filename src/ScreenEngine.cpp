@@ -181,13 +181,13 @@ void Motor_Pantalla::DrawPausa() {
 		case CAMARA_FIJA:
 			sprintf(Mensage, "< Fixed >");
 		break;
-		case CAMAR_SEGUIR:
+		case FOLLOW:
 			sprintf(Mensage, "< Follow >");
 		break;
-		case CAMARA_MOUS:
+		case MOUSE:
 			sprintf(Mensage, "< Mouse >");
 		break;
-		case CAMARA_P1:
+		case FIRST_PERSON:
 			sprintf(Mensage, "< 1st Person >");
 		break;
 	}

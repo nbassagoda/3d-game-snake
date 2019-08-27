@@ -27,7 +27,7 @@ void Apple::GenerateShape() {
 void Apple::Draw(ModelType m, Datos_Camara camara) {
 	glPushMatrix();
 	float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
-	if (n < FB_ZFar) {
+	if (n < z_far) {
 		glEnable(GL_BLEND);
 		float d = Distancia_Puntos(camara.direccionX, camara.direccionY, camara.direccionZ, camara.posX, camara.posY, camara.posZ);
 		

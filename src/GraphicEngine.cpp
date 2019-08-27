@@ -45,7 +45,7 @@ void Motor_Grafico::CargaAmbiente() {
 	glClearColor(Clear_Color, Clear_Color, Clear_Color, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45,640.0/480.0,FB_ZNear,FB_ZFar);
+	gluPerspective(45,640.0/480.0,z_near,z_far);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
@@ -471,7 +471,7 @@ void Motor_Grafico::DrawCamara() {
 			Camera.posYR = Camera.posY;
 			Camera.posZR = Camera.posZ;
 		break;
-		case CAMAR_SEGUIR:
+		case FOLLOW:
 			if(PersonageControlado != NULL) {
 				Camera.posX = (PersonageControlado->getPos().posX - sin(PersonageControlado->get_anguloActual())*10);
 				Camera.direccionX = PersonageControlado->getPos().posX + sin(PersonageControlado->get_anguloActual());
@@ -484,7 +484,7 @@ void Motor_Grafico::DrawCamara() {
 			Camera.normalY = 1;
 			Camera.normalZ = 0;
 		break;
-		case CAMARA_P1:
+		case FIRST_PERSON:
 			if(PersonageControlado != NULL) {
 				Camera.posX = PersonageControlado->getPos().posX;
 				Camera.posZ = PersonageControlado->getPos().posZ;
@@ -497,7 +497,7 @@ void Motor_Grafico::DrawCamara() {
 			Camera.normalY = 1;
 			Camera.normalZ = 0;
 		break;
-		case CAMARA_MOUS:
+		case MOUSE:
 			if(PersonageControlado != NULL) {
 				Camera.direccionX = (PersonageControlado->getPos().posX);
 				Camera.direccionZ = PersonageControlado->getPos().posZ;
@@ -531,16 +531,16 @@ void Motor_Grafico::DrawAmbiente() {
 void Motor_Grafico::CambiarCamara() {
 	switch (EstadoJuego::get_Instance()->Camera) {
 		case CAMARA_FIJA:
-			Camera.camar = CAMARA_MOUS;
+			Camera.camar = MOUSE;
 		break;
-		case CAMAR_SEGUIR:
-			Camera.camar = CAMARA_P1;
+		case FOLLOW:
+			Camera.camar = FIRST_PERSON;
 		break;
-		case CAMARA_P1:
+		case FIRST_PERSON:
 			Camera.camar = CAMARA_FIJA;
 		break;
-		case CAMARA_MOUS:
-			Camera.camar = CAMAR_SEGUIR;
+		case MOUSE:
+			Camera.camar = FOLLOW;
 		break;
 	}
 	EstadoJuego::get_Instance()->Camera = Camera.camar;

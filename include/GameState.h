@@ -11,9 +11,9 @@ class EstadoJuego {
 		static EstadoJuego* instance;
 		
 	public:
-		Tipo_Camar Camera;
+		camera_type Camera;
 		bool Interpolado;
-		list<El_A_Juego>* listaAcciones;
+		list<to_play>* listaAcciones;
 		float velocidad;
 		bool ModoPrueba;
 		bool Texturas;
@@ -23,7 +23,7 @@ class EstadoJuego {
 		InfLus luz;
 		Estado_Juego estdo;
 		static EstadoJuego* get_Instance();
-		void AgregarAccionLisa(El_A_Juego);
+		void AgregarAccionLisa(to_play);
 		void VaciarListaAcciones();
 		int nivel;
 };

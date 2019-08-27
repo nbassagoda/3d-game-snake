@@ -8,7 +8,7 @@ EstadoJuego* EstadoJuego::get_Instance() {
 }
 
 EstadoJuego::EstadoJuego() {
-	listaAcciones = new list<El_A_Juego>;
+	listaAcciones = new list<to_play>;
 	velocidad = 1;
 	modelado = MOD_SOLIDO;
 	Camera = CAMARA_FIJA;
@@ -23,7 +23,7 @@ EstadoJuego::EstadoJuego() {
 	nivel = 0;
 }
 
-void EstadoJuego::AgregarAccionLisa(El_A_Juego a) {
+void EstadoJuego::AgregarAccionLisa(to_play a) {
 	listaAcciones->push_back(a);
 }
 

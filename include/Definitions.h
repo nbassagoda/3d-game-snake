@@ -21,16 +21,16 @@ using namespace std;
 #ifndef DEFINICIONES_H
 #define DEFINICIONES_H
 
-enum El_A_Juego {A_Perder, A_Ganar, A_BONUS_Point};
-enum Tipo_Camar {CAMARA_FIJA, CAMARA_P1, CAMARA_MOUS, CAMAR_SEGUIR};
-enum M_FB {MOD_N, MOD_T};
-const float FB_ZFar = 100;
-const float FB_ZNear = 1;
+enum to_play {TO_LOSE, TO_WIN, TO_BONUS_POINT};
+enum camera_type {CAMARA_FIJA, FIRST_PERSON, MOUSE, FOLLOW};
+enum m_fb {MOD_N, MOD_T};
+const float z_far = 100;
+const float z_near = 1;
 const float Field_Size = 15;
 const float Field_Limit = Field_Size - 1.2;
 
 struct Datos_Camara {
-	Tipo_Camar camar;
+	camera_type camar;
 	float posX;
 	float posY;
 	float posZ;

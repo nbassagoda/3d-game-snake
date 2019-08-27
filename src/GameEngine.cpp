@@ -39,17 +39,17 @@ void Motor_Juego::VerColicionesPersonaje() {
 }
 
 void Motor_Juego::TimeEvolution(float t) {
-	list<El_A_Juego>::const_iterator itAc;
+	list<to_play>::const_iterator itAc;
 	for (itAc = estados->listaAcciones->begin(); itAc != estados->listaAcciones->end(); ++itAc) {
-		El_A_Juego a = *itAc;
+		to_play a = *itAc;
 		switch(a) {
-			case A_Perder:
+			case TO_LOSE:
 				AccionPerder();
 			break;
-			case A_Ganar:
+			case TO_WIN:
 				AccionGanar();
 			break;
-			case A_BONUS_Point:
+			case TO_BONUS_POINT:
 				EstadoJuego* Estado = EstadoJuego::get_Instance();
 				Estado->Puntage += 5;
 				if ((Estado->Puntage == 50) && (Estado->nivel == 0)) {
