@@ -76,43 +76,43 @@ void Motor_Grafico::CargaModelos() {
   CargaTextura(TEXTURE_MARS, MARS_TEXTURE_PATH);
   CargaTextura(TEXTURE_NEPTUNO, NEPTUNO_TEXTURE_PATH);
 
-	Earth::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_EARTH);
-	Earth::ModeloT = Earth::ModeloS;
+	Earth::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_EARTH);
+	Earth::modelT = Earth::modelS;
 
-	Moon::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MOON);
-	Moon::ModeloT = Moon::ModeloS;
+	Moon::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MOON);
+	Moon::modelT = Moon::modelS;
 
-	Sun::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_SUN);
-	Sun::ModeloT = Sun::ModeloS;
+	Sun::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_SUN);
+	Sun::modelT = Sun::modelS;
 
-	Mercury::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MERCURY);
-	Mercury::ModeloT = Mercury::ModeloS;
+	Mercury::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MERCURY);
+	Mercury::modelT = Mercury::modelS;
 
-	Venus::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_VENUS);
-	Venus::ModeloT = Venus::ModeloS;
+	Venus::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_VENUS);
+	Venus::modelT = Venus::modelS;
 
-	Jupiter::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_JUPITER);
-	Jupiter::ModeloT = Jupiter::ModeloS;
+	Jupiter::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_JUPITER);
+	Jupiter::modelT = Jupiter::modelS;
 
-	Mars::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_URANO);
-	Mars::ModeloT = Mars::ModeloS;
+	Mars::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_URANO);
+	Mars::modelT = Mars::modelS;
 
-	Neptuno::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_NEPTUNO);
-	Neptuno::ModeloT = Neptuno::ModeloS;
+	Neptuno::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_NEPTUNO);
+	Neptuno::modelT = Neptuno::modelS;
 
 	
-	Snake::ModeloS = CargarObjeto::CaragarSolidTextura(SNAKE_OBJECT_PATH, TEXTURE_SNAKE);
-    Snake::ModeloT = Snake::ModeloS;
+	Snake::modelS = CargarObjeto::CaragarSolidTextura(SNAKE_OBJECT_PATH, TEXTURE_SNAKE);
+    Snake::modelT = Snake::modelS;
 
     if (EstadoJuego::get_Instance()->nivel != 0){
-        Apple::ModeloS = CargarObjeto::CaragarSolidTextura(APPLE_OBJECT_PATH, TEXTURE_APPLE);
-        Apple::ModeloT = Apple::ModeloS;
+        Apple::modelS = CargarObjeto::CaragarSolidTextura(APPLE_OBJECT_PATH, TEXTURE_APPLE);
+        Apple::modelT = Apple::modelS;
         Document << "[CargaModelos] deberia ser manzana" << endl;
     }
     else{
     	Document << "[CargaModelos] deberia ser estrella" << endl;
-        Apple::ModeloS = CargarObjeto::CaragarSolidTextura(STAR_OBJECT_PATH, TEXTURE_STAR);
-        Apple::ModeloT = Apple::ModeloS;
+        Apple::modelS = CargarObjeto::CaragarSolidTextura(STAR_OBJECT_PATH, TEXTURE_STAR);
+        Apple::modelT = Apple::modelS;
     }
     
     Snake::GenerateShape();
@@ -143,7 +143,7 @@ void Motor_Grafico::CargaTextura(GLuint &texture, const char* texture_name) {
 	Document << "[CargaTextura] [Texture _" << texture_name << "_ loaded]" << endl;
 }
 
-void Motor_Grafico::Dibujar() {
+void Motor_Grafico::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -156,21 +156,21 @@ void Motor_Grafico::Dibujar() {
 	if (EstadoJuego::get_Instance()->Interpolado) glShadeModel(GL_SMOOTH);
 	else glShadeModel(GL_FLAT);
 
-	DibujarLuz();
-	DibujarCamara();
-	DibujarAmbiente();
-	DibujarEsenario();
+	DrawLuz();
+	DrawCamara();
+	DrawAmbiente();
+	DrawEsenario();
 	
 	if (!EstadoJuego::get_Instance()->luz.activa) glDisable(GL_LIGHTING);
 	else glEnable(GL_LIGHTING);
 	
-	DibujarPersonajes();
+	DrawPersonajes();
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	DibujarContexto();
+	DrawContexto();
 }
 
-void Motor_Grafico::DibujarLuz() {
+void Motor_Grafico::DrawLuz() {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	GLfloat ambient[] = {0.4f, 0.4f, 0.4f};
@@ -239,13 +239,13 @@ void Motor_Grafico::DibujarLuz() {
 	glLightfv(GL_LIGHT0, GL_POSITION, posicion_inicial);
 }
 
-void Motor_Grafico::DibujarContexto() {
-	Motor_Pantalla::get_Instance()->DibujarPantalla();
+void Motor_Grafico::DrawContexto() {
+	Motor_Pantalla::get_Instance()->DrawPantalla();
 }
 
 int ang = 0;
 
-void Motor_Grafico::DibujarEsenario() {
+void Motor_Grafico::DrawEsenario() {
 	float x = 0;
 	float y = Field_Size;
 	float z = 0;
@@ -375,7 +375,7 @@ void Motor_Grafico::DibujarEsenario() {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Sun::ModeloS);
+			glCallList(Sun::modelS);
 		//}
 
 
@@ -386,7 +386,7 @@ void Motor_Grafico::DibujarEsenario() {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Earth::ModeloS);
+			glCallList(Earth::modelS);
 		//}
 
 		glTranslatef(3,0,3);
@@ -396,7 +396,7 @@ void Motor_Grafico::DibujarEsenario() {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Moon::ModeloS);
+			glCallList(Moon::modelS);
 		//}
 		glTranslatef(5,0,10);
 		glRotatef(ang,0,1,0);
@@ -405,7 +405,7 @@ void Motor_Grafico::DibujarEsenario() {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Mars::ModeloS);
+			glCallList(Mars::modelS);
 		//}
 		glTranslatef(-3,0,-7);
 		glRotatef(ang,0,1,0);
@@ -414,7 +414,7 @@ void Motor_Grafico::DibujarEsenario() {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(2,0,-2);
 		//if(m != MOD_COLICION) {
-			glCallList(Mercury::ModeloS);
+			glCallList(Mercury::modelS);
 		//}
 		glTranslatef(4,0,3);
 		glRotatef(ang,0,1,0);
@@ -422,7 +422,7 @@ void Motor_Grafico::DibujarEsenario() {
 		if(EstadoJuego::get_Instance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Venus::ModeloS);
+			glCallList(Venus::modelS);
 
 		glTranslatef(3,0,5);
 		glRotatef(ang,0,1,0);
@@ -430,7 +430,7 @@ void Motor_Grafico::DibujarEsenario() {
 		if(EstadoJuego::get_Instance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Jupiter::ModeloS);
+			glCallList(Jupiter::modelS);
 
 		glTranslatef(-8,0,1);
 		glRotatef(ang,0,1,0);
@@ -438,7 +438,7 @@ void Motor_Grafico::DibujarEsenario() {
 		if(EstadoJuego::get_Instance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Neptuno::ModeloS);
+			glCallList(Neptuno::modelS);
 		glDisable(GL_ALPHA);
 		glPopMatrix();
 	}
@@ -446,12 +446,12 @@ void Motor_Grafico::DibujarEsenario() {
 	map<int, Objeto*>::iterator it;
 	for (it = ambiente->begin(); it != ambiente->end(); ++it){
 		if (it->first == 0)
-			it->second->Dibujar(EstadoJuego::get_Instance()->modelado, Camera);
+			it->second->Draw(EstadoJuego::get_Instance()->modelado, Camera);
 	}*/
 
 }
 
-void Motor_Grafico::DibujarCamara() {
+void Motor_Grafico::DrawCamara() {
 	Snake* PersonageControlado = Motor_Juego::get_Instance()->getPersonajeControlable();
 	glLoadIdentity();
 	switch (EstadoJuego::get_Instance()->Camera) {
@@ -518,14 +518,14 @@ void Motor_Grafico::DibujarCamara() {
 	gluLookAt(Camera.posX , Camera.posY, Camera.posZ, Camera.direccionX, Camera.direccionY, Camera.direccionZ, Camera.normalX, Camera.normalY, Camera.normalZ);
 }
 
-void Motor_Grafico::DibujarPersonajes() {
+void Motor_Grafico::DrawPersonajes() {
 	Snake* personage = Motor_Juego::get_Instance()->getPersonajeControlable();
-	if (personage != NULL) personage->Dibujar(EstadoJuego::get_Instance()->modelado, Camera);
+	if (personage != NULL) personage->Draw(EstadoJuego::get_Instance()->modelado, Camera);
 }
 
-void Motor_Grafico::DibujarAmbiente() {
+void Motor_Grafico::DrawAmbiente() {
 	Objeto* Tem = Motor_Juego::get_Instance()->getElemento();
-	if (Tem != NULL) Tem->Dibujar(EstadoJuego::get_Instance()->modelado, Camera);
+	if (Tem != NULL) Tem->Draw(EstadoJuego::get_Instance()->modelado, Camera);
 }
 
 void Motor_Grafico::CambiarCamara() {

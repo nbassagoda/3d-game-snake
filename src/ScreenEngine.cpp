@@ -32,7 +32,7 @@ Motor_Pantalla* Motor_Pantalla::get_Instance() {
 	return instance;
 }
 
-void Motor_Pantalla::DibujarHUD() {
+void Motor_Pantalla::DrawHUD() {
 	SDL_Color a = {255, 255, 255};
 	char Mensage[500];
 	sprintf(Mensage, "Score: ");
@@ -79,7 +79,7 @@ void Motor_Pantalla::DibujarHUD() {
 	glDeleteTextures(1, &texto);
 }
 
-void Motor_Pantalla::DibujarPausa() {
+void Motor_Pantalla::DrawPausa() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.7);
 	glBegin(GL_QUADS);
@@ -483,7 +483,7 @@ void Motor_Pantalla::DibujarPausa() {
 	PosI += Tam;
 }
 
-void Motor_Pantalla::DibujarPerder() {
+void Motor_Pantalla::DrawPerder() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -511,7 +511,7 @@ void Motor_Pantalla::DibujarPerder() {
 	glEnd();
 }
 
-void Motor_Pantalla::DibujarGanar() {
+void Motor_Pantalla::DrawGanar() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -577,7 +577,7 @@ GLuint Motor_Pantalla::CargaTextoC(const char* file, SDL_Color a) {
 	return id;
 }
 
-void Motor_Pantalla::DibujarInicio() {
+void Motor_Pantalla::DrawInicio() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -605,7 +605,7 @@ void Motor_Pantalla::DibujarInicio() {
     glEnd();
 }
 
-void Motor_Pantalla::DibujarPantalla() {
+void Motor_Pantalla::DrawPantalla() {
 	glDisable(GL_LIGHTING);
 	glDisable(GL_DEPTH_TEST);
 	// glClear(GL_COLOR_BUFFER_BIT);
@@ -624,22 +624,22 @@ void Motor_Pantalla::DibujarPantalla() {
 	glMatrixMode(GL_MODELVIEW);             // Set the matrix mode to modelview
 	glLoadIdentity();
 
-	if(EstadoJuego::get_Instance()->estdo != Inicio) DibujarHUD();
+	if(EstadoJuego::get_Instance()->estdo != Inicio) DrawHUD();
 	switch(EstadoJuego::get_Instance()->estdo) {
 		case Perdio:
-			DibujarPerder();
+			DrawPerder();
 		break;
 		case Pausado:
-			DibujarPausa();
+			DrawPausa();
 		break;
 		case Inicio:
-			DibujarInicio();
+			DrawInicio();
 		break;
 		case Gano:
-			DibujarGanar();
+			DrawGanar();
 		break;
 	}
-	// if(EstadoJuego::get_Instance()->estdo != Inicio) DibujarHUD();
+	// if(EstadoJuego::get_Instance()->estdo != Inicio) DrawHUD();
 
 	glPopMatrix();
 	glDisable(GL_BLEND);

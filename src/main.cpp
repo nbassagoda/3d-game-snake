@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
 		
 		SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 		
-		motor_grafico->Dibujar();
+		motor_grafico->Draw();
 		
 		Uint32 tiempo = (SDL_GetTicks() - start);
 		start = SDL_GetTicks();

@@ -1,7 +1,7 @@
 #include "../include/Sun.h"
 
-int Sun::ModeloS = 0;
-int Sun::ModeloT = 0;
+int Sun::modelS = 0;
+int Sun::modelT = 0;
 
 Sun::Sun(float x, float y, float z, float angX, float angY, float angZ) {
     _posicion.posX = x;
@@ -14,7 +14,7 @@ Sun::Sun(float x, float y, float z, float angX, float angY, float angZ) {
     id = 6;
 }
 
-void Sun::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
+void Sun::Draw(ModelType m, Datos_Camara camara) {
     glPushMatrix();
     float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
     if (n < FB_ZFar) {
@@ -28,14 +28,14 @@ void Sun::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
             glEnable(GL_TEXTURE_2D);
             glColor3f(1,0,0);
         if(m != MOD_COLICION) {
-            glCallList(ModeloS);
+            glCallList(modelS);
         }
     }
     glDisable(GL_ALPHA);
     glPopMatrix();
 }
 
-void Sun::EvolucionTiempo(float t) {
+void Sun::TimeEvolution(float t) {
     _posicion.angleY += 0.6;
     if(_posicion.angleY > 360) _posicion.angleY -= 360;
 }

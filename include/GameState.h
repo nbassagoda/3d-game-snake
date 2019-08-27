@@ -19,7 +19,7 @@ class EstadoJuego {
 		bool Texturas;
 		bool FB_Mot;
 		int Puntage;
-		Tipo_Modelo modelado;
+		ModelType modelado;
 		InfLus luz;
 		Estado_Juego estdo;
 		static EstadoJuego* get_Instance();

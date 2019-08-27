@@ -1,7 +1,7 @@
 #include "../include/Mars.h"
 
-int Mars::ModeloS = 0;
-int Mars::ModeloT = 0;
+int Mars::modelS = 0;
+int Mars::modelT = 0;
 
 Mars::Mars(float x, float y, float z, float angX, float angY, float angZ) {
     _posicion.posX = x;
@@ -14,7 +14,7 @@ Mars::Mars(float x, float y, float z, float angX, float angY, float angZ) {
     id = 3;
 }
 
-void Mars::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
+void Mars::Draw(ModelType m, Datos_Camara camara) {
     glPushMatrix();
     float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
     if (n < FB_ZFar) {
@@ -28,14 +28,14 @@ void Mars::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
             glEnable(GL_TEXTURE_2D);
             glColor3f(1,0,0);
         if(m != MOD_COLICION) {
-            glCallList(ModeloS);
+            glCallList(modelS);
         }
     }
     glDisable(GL_ALPHA);
     glPopMatrix();
 }
 
-void Mars::EvolucionTiempo(float t) {
+void Mars::TimeEvolution(float t) {
     _posicion.angleY += 0.6;
     if(_posicion.angleY > 360) _posicion.angleY -= 360;
 }

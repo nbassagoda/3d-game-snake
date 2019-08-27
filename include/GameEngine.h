@@ -36,7 +36,7 @@ private:
 	
 public:
 	static Motor_Juego* get_Instance();
-	void EvolucionTiempo(float t);
+	void TimeEvolution(float t);
 	void AccionIniciarJuego(string s);
 	void AccionPausar();
 	void AccionPerder();

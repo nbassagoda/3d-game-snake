@@ -1,7 +1,7 @@
 #include "../include/Moon.h"
 
-int Moon::ModeloS = 0;
-int Moon::ModeloT = 0;
+int Moon::modelS = 0;
+int Moon::modelT = 0;
 
 Moon::Moon(float x, float y, float z, float angX, float angY, float angZ) {
     Document.open("data/Info/Events_Out.txt");
@@ -15,7 +15,7 @@ Moon::Moon(float x, float y, float z, float angX, float angY, float angZ) {
     id = 1;
 }
 
-void Moon::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
+void Moon::Draw(ModelType m, Datos_Camara camara) {
     glPushMatrix();
     float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
     if (n < FB_ZFar) {
@@ -29,7 +29,7 @@ void Moon::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
             glEnable(GL_TEXTURE_2D);
             glColor3f(1,0,0);
         if(m != MOD_COLICION) {
-            glCallList(ModeloS);
+            glCallList(modelS);
         }
     }
     glDisable(GL_ALPHA);
@@ -38,7 +38,7 @@ void Moon::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
     Document << "[Motor_Grafico]" << _posicion.posX <<  _posicion.posY <<  _posicion.posZ << endl;
 }
 
-void Moon::EvolucionTiempo(float t) {
+void Moon::TimeEvolution(float t) {
     _posicion.angleY += 0.6;
     if(_posicion.angleY > 360) _posicion.angleY -= 360;
 }

@@ -1,9 +1,9 @@
 #include "../include/Apple.h"
 
-int Apple::ModeloS = 0;
-int Apple::ModeloT = 0;
+int Apple::modelS = 0;
+int Apple::modelT = 0;
 
-list<Shape*>* Apple::formaApple = new list<Shape*>();
+list<Shape*>* Apple::ShapeApple = new list<Shape*>();
 
 Apple::Apple(float x, float y, float z, float angX, float angY, float angZ) {
 	_posicion.posX = x;
@@ -17,14 +17,14 @@ Apple::Apple(float x, float y, float z, float angX, float angY, float angZ) {
 	_tipo = T_PERSONAGE;
 	_clase = C_APPLE;
 	_Coliciones = new map<int, Clase_Objeto>();
-	_Shape = formaApple;
+	_Shape = ShapeApple;
 }
 
 void Apple::GenerateShape() {
-	formaApple->push_back(new ShapeSphere(0, 0, 10, 0.5));
+	ShapeApple->push_back(new ShapeSphere(0, 0, 10, 0.5));
 }
 
-void Apple::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
+void Apple::Draw(ModelType m, Datos_Camara camara) {
 	glPushMatrix();
 	float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
 	if (n < FB_ZFar) {
@@ -39,11 +39,11 @@ void Apple::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		if(m != MOD_COLICION) {
-			glCallList(ModeloS);
+			glCallList(modelS);
 		} else {
 			list<Shape*>::iterator it;
 			glColor3f(0,1,0);
-			for (it = formaApple->begin();it != formaApple->end(); it++) {
+			for (it = ShapeApple->begin();it != ShapeApple->end(); it++) {
 				ShapeSphere* forma = dynamic_cast<ShapeSphere*>(*it);
 				glPushMatrix();
 				glTranslated(forma->posX, forma->posY, forma->posZ);
@@ -57,12 +57,12 @@ void Apple::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
 	glPopMatrix();
 }
 
-void Apple::EvolucionTiempo(float t) {
+void Apple::TimeEvolution(float t) {
 	_posicion.angleY += 2;
 	if(_posicion.angleY > 360) _posicion.angleY -= 360;
 }
 
-bool Apple::AccionColiccion() { }
+bool Apple::CollisionAction() { }
 
 Apple::~Apple() {
 	delete(_Coliciones);

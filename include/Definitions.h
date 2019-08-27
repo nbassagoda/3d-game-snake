@@ -75,7 +75,7 @@ enum Estado_Juego {Pausado, Activo, Gano, Perdio, Inicio, Salir};
 enum Tipo_Shape {Esfera};
 enum Tipo_Obejto {T_SOLIDO, T_PERSONAGE, T_FONDO};
 enum Clase_Objeto{C_APPLE, C_SNAKE};
-enum Tipo_Modelo{MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};
+enum ModelType{MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};
 
 float Distancia_Puntos(float x1, float y1, float z1, float x2, float y2, float y3);
 

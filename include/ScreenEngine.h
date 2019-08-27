@@ -16,17 +16,17 @@ private:
 	TTF_Font* fontMenu;
 	unsigned int CargaTextoC(const char* file, SDL_Color a);
 	unsigned int CargaTextoG(const char* file, SDL_Color a);
-	void DibujarPausa();
-	void DibujarInicio();
-	void DibujarHUD();
-	void DibujarPerder();
-	void DibujarGanar();
+	void DrawPausa();
+	void DrawInicio();
+	void DrawHUD();
+	void DrawPerder();
+	void DrawGanar();
     unsigned int CargaTextura(const char* file);
 	
 public:
 	static unsigned int puto;
 	static Motor_Pantalla* get_Instance();
-	void DibujarPantalla();
+	void DrawPantalla();
 };
 
 #endif

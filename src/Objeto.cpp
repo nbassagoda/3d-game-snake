@@ -34,7 +34,7 @@ void Objeto::AgregarColicion(int id,Clase_Objeto tipo) {
 }
 
 void Objeto::VaciarColiciones() {
-	// map<int,Tipo_Modelo>::iterator it;
+	// map<int,ModelType>::iterator it;
 	// for (it = elementos->begin();it != elementos->end(); ++it)
 	//delete(it->second);
 	_Coliciones->clear();

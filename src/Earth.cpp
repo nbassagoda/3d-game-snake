@@ -1,7 +1,7 @@
 #include "../include/Earth.h"
 
-int Earth::ModeloS = 0;
-int Earth::ModeloT = 0;
+int Earth::modelS = 0;
+int Earth::modelT = 0;
 
 Earth::Earth(float x, float y, float z, float angX, float angY, float angZ) {
     Document.open("data/Info/Events_Out.txt");
@@ -16,7 +16,7 @@ Earth::Earth(float x, float y, float z, float angX, float angY, float angZ) {
     id = 0;
 }
 
-void Earth::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
+void Earth::Draw(ModelType m, Datos_Camara camara) {
     glPushMatrix();
     float n = Distancia_Puntos(_posicion.posX, _posicion.posY, _posicion.posZ, camara.posX, camara.posY, camara.posZ);
     if (n < FB_ZFar) {
@@ -30,7 +30,7 @@ void Earth::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
             glEnable(GL_TEXTURE_2D);
             glColor3f(1,0,0);
         if(m != MOD_COLICION) {
-            glCallList(ModeloS);
+            glCallList(modelS);
         }
     }
     glDisable(GL_ALPHA);
@@ -38,7 +38,7 @@ void Earth::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
     Document << "[Motor_Grafico]" << _posicion.posX <<  _posicion.posY <<  _posicion.posZ << endl;
 }
 
-void Earth::EvolucionTiempo(float t) {
+void Earth::TimeEvolution(float t) {
     _posicion.angleY += 0.6;
     if(_posicion.angleY > 360) _posicion.angleY -= 360;
 }

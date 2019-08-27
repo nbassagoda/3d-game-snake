@@ -54,17 +54,17 @@ class Motor_Grafico {
     void CargaAmbiente();
     void CargaModelos();
     void CargaTextura(GLuint &texture, const char* texture_name);
-    void DibujarLuz();
-    void DibujarCamara();
-    void DibujarEsenario();
-    void DibujarPersonajes();
-    void DibujarContexto();
-    void DibujarAmbiente();
+    void DrawLuz();
+    void DrawCamara();
+    void DrawEsenario();
+    void DrawPersonajes();
+    void DrawContexto();
+    void DrawAmbiente();
     ~Motor_Grafico();
 
   public:
     static Motor_Grafico* get_Instance();
-    void Dibujar();
+    void Draw();
     void ruedita(bool);
     void CambiarModo();
     void CambiarCamara();

@@ -21,12 +21,12 @@ class Snake : public Objeto {
 
 	public:
 		Snake(float x, float y, float z, float angX, float angY, float angZ);
-		static GLint ModeloS;
-		static GLint ModeloT;
+		static GLint modelS;
+		static GLint modelT;
 		static void GenerateShape();
-		void Dibujar(Tipo_Modelo m, Datos_Camara camara);
-		void EvolucionTiempo(float t);
-		bool AccionColiccion();
+		void Draw(ModelType m, Datos_Camara camara);
+		void TimeEvolution(float t);
+		bool CollisionAction();
 		float get_anguloActual();
 		~Snake();
 };

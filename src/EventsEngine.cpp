@@ -138,7 +138,7 @@ void Motor_Eventos::RealizarEvento(SDL_Event event) {
 }
 
 void Motor_Eventos::Evolucion_Estados(float time) {
-	Motor_Juego::get_Instance()->EvolucionTiempo(time);
+	Motor_Juego::get_Instance()->TimeEvolution(time);
 	if (Apretados_plus) Motor_Juego::get_Instance()->AccionAccelerar();
 	if(Apretados_min) Motor_Juego::get_Instance()->AccionEnlentecer();
 }

@@ -24,7 +24,7 @@ void Motor_Juego::VerColicionesPersonaje() {
 	map<int,Objeto*>::iterator it;
 
 			if(PersonjeControlable->Colicion(Now)) {
-				PersonjeControlable->AccionColiccion();
+				PersonjeControlable->CollisionAction();
 				apple_identification++;
 				map<int, Objeto*>::iterator it;
 				for (it = elementos->begin(); it != elementos->end(); ++it){
@@ -34,11 +34,11 @@ void Motor_Juego::VerColicionesPersonaje() {
 			}
 
 	for(it = elementos->begin(); it != elementos->end(); ++it) {
-		it->second->AccionColiccion();
+		it->second->CollisionAction();
 	}
 }
 
-void Motor_Juego::EvolucionTiempo(float t) {
+void Motor_Juego::TimeEvolution(float t) {
 	list<El_A_Juego>::const_iterator itAc;
 	for (itAc = estados->listaAcciones->begin(); itAc != estados->listaAcciones->end(); ++itAc) {
 		El_A_Juego a = *itAc;
@@ -61,8 +61,8 @@ void Motor_Juego::EvolucionTiempo(float t) {
 	}
 	estados->VaciarListaAcciones();
 	if(estados->estdo == Activo) { 
-		PersonjeControlable->EvolucionTiempo(t*estados->velocidad);
-		if(Now != NULL) Now->EvolucionTiempo(t*estados->velocidad);
+		PersonjeControlable->TimeEvolution(t*estados->velocidad);
+		if(Now != NULL) Now->TimeEvolution(t*estados->velocidad);
 		VerColicionesPersonaje();
 	}
 }

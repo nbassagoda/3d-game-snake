@@ -24,17 +24,17 @@ class Objeto{
 		void SetTamanio(float size);
 		void SetPosicion(float x,float y, float z);
 		static int codigoEsfer;
-		virtual void EvolucionTiempo(float time){};
+		virtual void TimeEvolution(float time){};
 		void AgregarColicion(int id,Clase_Objeto tipo);
 		//Agrega la id a la listas de los objrtod con los que coliciono
-		virtual bool AccionColiccion(){return false;};
+		virtual bool CollisionAction(){return false;};
 		//Genera las Acciones que corresponden a las coliciones de la lista de Coliciones
 		void VaciarColiciones();
 		//Vacia la lista de Coliciones
 		list<Shape*>* getShape();
 		bool Colicion(Objeto* o);
 		//Rutina de colicion con el objeto o
-		virtual void Dibujar(Tipo_Modelo m,Datos_Camara camara){};
+		virtual void Draw(ModelType m,Datos_Camara camara){};
 		int getId();
 		OBJ_POS getPos();
 		Clase_Objeto getClase();

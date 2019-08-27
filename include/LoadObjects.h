@@ -17,8 +17,6 @@ using namespace std;
 #ifndef CARGAROBJETO_H
 #define CARGAROBJETO_H
 
-enum TipoModelo {OBJE_NORMAL, OBJE, OBJE_COLOR, OBJE_TEXT};
-
 struct Cordenada {
 	float x, y, z;
 	Cordenada(float a, float b, float c);
