@@ -12,11 +12,11 @@ class Apple: public Objeto {
 		static list<Shape*>* ShapeApple;
 	
 	public:
-		Apple(float x, float y, float z, float angX, float angY, float angZ);
-		static int modelS;
-		static int modelT;
+		Apple(float x, float y, float z, float ang_x, float ang_y, float ang_z);
+		static int model_s;
+		static int model_t;
 		static void GenerateShape();
-		void Draw(ModelType m, Datos_Camara camara);
+		void Draw(ModelType m, data_camera camara);
 		void TimeEvolution(float t);
 		bool CollisionAction();
 		~Apple();

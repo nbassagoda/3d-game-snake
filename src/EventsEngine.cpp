@@ -1,89 +1,89 @@
 #include "../include/EventsEngine.h"
 
-Motor_Eventos* Motor_Eventos::instance = NULL;
+EventsEngine* EventsEngine::instance = NULL;
 
-Motor_Eventos* Motor_Eventos::get_Instance() {
+EventsEngine* EventsEngine::GetInstance() {
 	if (instance == NULL)
-		instance = new Motor_Eventos();
+		instance = new EventsEngine();
 	return instance;
 }
 
-Motor_Eventos::Motor_Eventos() {
+EventsEngine::EventsEngine() {
 	Document.open(EVENTS_DOCUMENT_PATH);
-	Apretados_min = false;
-	Apretados_plus = false;
-	quieroMover = false;
-	quieroRotar = false;
-	Document << "[Motor_Eventos] [Motor Eventos inicio correctamente]" << endl;
+	hit_min = false;
+	hit_plus = false;
+	move = false;
+	rotate = false;
+	Document << "[EventsEngine] [Motor Eventos inicio correctamente]" << endl;
 }
 
-void Motor_Eventos::RealizarEvento(SDL_Event event) {
+void EventsEngine::PerformEvent(SDL_Event event) {
 	while(SDL_PollEvent(&event))
 		switch(event.type) {
 			case SDL_QUIT:
-				Motor_Juego::get_Instance()->AccionSalir();
+				GameEngine::GetInstance()->Quit();
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 					case SDLK_ESCAPE:
-						Motor_Juego::get_Instance()->AccionSalir();
+						GameEngine::GetInstance()->Quit();
 					break;
 					case SDLK_q:
-						Motor_Juego::get_Instance()->AccionSalir();
+						GameEngine::GetInstance()->Quit();
 					break;
 					case SDLK_KP_PLUS:
-						Apretados_plus = true;
+						hit_plus = true;
 					break;
 					case SDLK_KP_MINUS:
-						Apretados_min = true;
+						hit_min = true;
 					break;
 					case SDLK_SPACE:
-						Motor_Juego::get_Instance()->AccionIniciarJuego("Defecto");
+						GameEngine::GetInstance()->StartGame("Defecto");
 					break;
 					case SDLK_m:
-						Motor_Grafico::get_Instance()->CambiarModo();
+						GraphicEngine::GetInstance()->CambiarModo();
 					break;
 					case SDLK_UP:
-						Menu::get_Instance()->AccionCambiarAriba();
+						Menu::GetInstance()->AccionCambiarAriba();
 					break;
 					case SDLK_DOWN:
-						Menu::get_Instance()->AccionCambiarAbajo();
+						Menu::GetInstance()->AccionCambiarAbajo();
 					break;
 					case SDLK_v:
-						Motor_Grafico::get_Instance()->CambiarCamara();
+						GraphicEngine::GetInstance()->CambiarCamara();
 					break;
 					case SDLK_f:
-						EstadoJuego::get_Instance()->Interpolado = !EstadoJuego::get_Instance()->Interpolado;
+						EstadoJuego::GetInstance()->interpolate = !EstadoJuego::GetInstance()->interpolate;
 					break;
 					case SDLK_t:
-						Motor_Grafico::get_Instance()->ActivarDesctivarTextura();
+						GraphicEngine::GetInstance()->ActivarDesctivarTextura();
 					break;
 					case SDLK_l:
-						Motor_Grafico::get_Instance()->ActivarDesactivarLuz();
+						GraphicEngine::GetInstance()->ActivarDesactivarLuz();
 					break;
 					case SDLK_p:
-						Motor_Juego::get_Instance()->AccionPausar();
+						GameEngine::GetInstance()->Pause();
 					break;
 					case SDLK_r:
-						Motor_Juego::get_Instance()->AccionRestar();
+						GameEngine::GetInstance()->Substract();
 					break;
 					case SDLK_F1:
-						Motor_Juego::get_Instance()->AccionModoPrueba();
+						GameEngine::GetInstance()->TrialMode();
 					break;
 					case SDLK_KP_ENTER:
-						Motor_Juego::get_Instance()->AccionVelocidadPorDefecot();
+						GameEngine::GetInstance()->DefaultSpeed();
 					break;
 					case SDLK_F2:
-						Motor_Juego::get_Instance()->AccionIniciarJuego("Defecto");
+						GameEngine::GetInstance()->StartGame("Defecto");
 					break;
 					case SDLK_RIGHT:
-						Menu::get_Instance()->AccionElegir(true);
-						quieroRotar = true;
-						direccionRotacion = false;
+						Menu::GetInstance()->AccionElegir(true);
+						rotate = true;
+						rotate_direction = false;
 					break;
 					case SDLK_LEFT:
-						Menu::get_Instance()->AccionElegir(false);
-						quieroRotar = true;
-						direccionRotacion = true;
+						Menu::GetInstance()->AccionElegir(false);
+						rotate = true;
+						rotate_direction = true;
 					break;
 					default:
 					break;
@@ -92,16 +92,16 @@ void Motor_Eventos::RealizarEvento(SDL_Event event) {
 			case SDL_KEYUP:
 				switch(event.key.keysym.sym) {
 					case SDLK_KP_MINUS:
-						Apretados_min = false;
+						hit_min = false;
 					break;
 					case SDLK_KP_PLUS:
-						Apretados_plus = false;
+						hit_plus = false;
 					break;
 					case SDLK_RIGHT:
-						quieroRotar = false;
+						rotate = false;
 					break;
 					case SDLK_LEFT:
-						quieroRotar = false;
+						rotate = false;
 					break;
 					default:
 					break;
@@ -109,27 +109,27 @@ void Motor_Eventos::RealizarEvento(SDL_Event event) {
 			break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_RIGHT) {
-					quieroMover = true;
+					move = true;
 				}
 				switch(event.button.button) {
 					case SDL_BUTTON_WHEELUP:
-						Motor_Grafico::get_Instance()->ruedita(true);
+						GraphicEngine::GetInstance()->ruedita(true);
 					break;
 					case SDL_BUTTON_WHEELDOWN:
-						Motor_Grafico::get_Instance()->ruedita(false);
+						GraphicEngine::GetInstance()->ruedita(false);
 					break;
 				}
 			break;
 		break;
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button == SDL_BUTTON_RIGHT) {
-				quieroMover = false;
+				move = false;
 			}
 		case SDL_MOUSEMOTION:
-			if (quieroMover) {
+			if (move) {
 				int xrel = event.motion.xrel;
 				int yrel = event.motion.yrel;
-				Motor_Grafico::get_Instance()->MotionCamara(xrel, yrel);
+				GraphicEngine::GetInstance()->MotionCamara(xrel, yrel);
 			}
 		break;
 		default:
@@ -137,16 +137,16 @@ void Motor_Eventos::RealizarEvento(SDL_Event event) {
 	}
 }
 
-void Motor_Eventos::Evolucion_Estados(float time) {
-	Motor_Juego::get_Instance()->TimeEvolution(time);
-	if (Apretados_plus) Motor_Juego::get_Instance()->AccionAccelerar();
-	if(Apretados_min) Motor_Juego::get_Instance()->AccionEnlentecer();
+void EventsEngine::ChangeState(float time) {
+	GameEngine::GetInstance()->TimeEvolution(time);
+	if (hit_plus) GameEngine::GetInstance()->Accelerate();
+	if(hit_min) GameEngine::GetInstance()->SlowDown();
 }
 
-bool Motor_Eventos::Quiero_Rotar() {
-	return quieroRotar;
+bool EventsEngine::Rotate() {
+	return rotate;
 }
 
-bool Motor_Eventos::Direccion_Rotacion() {
-	return direccionRotacion;
+bool EventsEngine::RotationDirection() {
+	return rotate_direction;
 }

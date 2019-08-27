@@ -13,19 +13,19 @@ using namespace std;
 class Objeto{
 	protected:
 		static int Id_CODE;
-		OBJ_POS _posicion;
-		Tipo_Obejto _tipo;
+		obj_pos _posicion;
+		ObjectType _tipo;
 		int _id;
-		Clase_Objeto _clase;
+		ObjectClass _clase;
 		list<Shape*>* _Shape;
-		map<int, Clase_Objeto>* _Coliciones;
+		map<int, ObjectClass>* _Coliciones;
 
 	public:
 		void SetTamanio(float size);
 		void SetPosicion(float x,float y, float z);
 		static int codigoEsfer;
 		virtual void TimeEvolution(float time){};
-		void AgregarColicion(int id,Clase_Objeto tipo);
+		void AgregarColicion(int id,ObjectClass tipo);
 		//Agrega la id a la listas de los objrtod con los que coliciono
 		virtual bool CollisionAction(){return false;};
 		//Genera las Acciones que corresponden a las coliciones de la lista de Coliciones
@@ -34,11 +34,11 @@ class Objeto{
 		list<Shape*>* getShape();
 		bool Colicion(Objeto* o);
 		//Rutina de colicion con el objeto o
-		virtual void Draw(ModelType m,Datos_Camara camara){};
+		virtual void Draw(ModelType m,data_camera camara){};
 		int getId();
-		OBJ_POS getPos();
-		Clase_Objeto getClase();
-		virtual void RestbleserInicio(){};
+		obj_pos getPos();
+		ObjectClass getClase();
+		virtual void RestbleserSTART(){};
 		virtual ~Objeto() {};
 };
 

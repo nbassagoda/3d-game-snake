@@ -6,5 +6,5 @@
 [IniciarPorDefecto] [sali] 
 [IniciarPorDefecto] [entre] 
 [IniciarPorDefecto] [New creation finished] 
-[AccionIniciarJuego] [Default game started] 
-[AccionSalir] [Game closed] 
+[StartGame] [Default game started] 
+[Quit] [Game closed] 

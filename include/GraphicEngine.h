@@ -7,10 +7,10 @@
 
 using namespace std;
 
-#ifndef MOTOR_GRAFICO_H
-#define MOTOR_GRAFICO_H
+#ifndef GRAPHIC_ENGINE
+#define GRAPHIC_ENGINE
 
-class Motor_Grafico {
+class GraphicEngine {
   private:
     // Constants.
     const char* GRAPHICS_ENGINE_DOCUMENT_PATH = "data/Info/Out_Graphics_Engine.txt";
@@ -44,13 +44,13 @@ class Motor_Grafico {
     GLuint TEXTURE_GRASS, TEXTURE_WOOD, TEXTURE_SNAKE, TEXTURE_APPLE, TEXTURE_STONE,TEXTURE_STAR,TEXTURE_EARTH,TEXTURE_MOON, TEXTURE_SUN, TEXTURE_MERCURY, TEXTURE_VENUS, TEXTURE_JUPITER, TEXTURE_MARS, TEXTURE_URANO, TEXTURE_NEPTUNO, TEXTURE_GALAXY;
     
     // Window clear color.
-    int Clear_Color = 0;
+    int clear_color = 0;
     
     /// Cam Information.
-    Datos_Camara Camera;
+    data_camera Camera;
     
-    static Motor_Grafico* instance;
-    Motor_Grafico();
+    static GraphicEngine* instance;
+    GraphicEngine();
     void CargaAmbiente();
     void CargaModelos();
     void CargaTextura(GLuint &texture, const char* texture_name);
@@ -60,10 +60,10 @@ class Motor_Grafico {
     void DrawPersonajes();
     void DrawContexto();
     void DrawAmbiente();
-    ~Motor_Grafico();
+    ~GraphicEngine();
 
   public:
-    static Motor_Grafico* get_Instance();
+    static GraphicEngine* GetInstance();
     void Draw();
     void ruedita(bool);
     void CambiarModo();

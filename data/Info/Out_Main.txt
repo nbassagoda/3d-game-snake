@@ -1,6 +1,6 @@
 [YES] [SDL successfully started] 
 [YES] [Video mode successfully started] 
-[YES] [Motor_Grafico successfully setted] 
-[YES] [Motor_Eventos successfully setted] 
+[YES] [GraphicEngine successfully setted] 
+[YES] [EventsEngine successfully setted] 
 [YES] [Main loop successfully started] 
 [YES] [Snake successfully finished]

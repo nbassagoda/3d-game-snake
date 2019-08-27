@@ -12,10 +12,10 @@ class Mars: public Objeto {
   
   public:
   	int id;
-    Mars(float x, float y, float z, float angX, float angY, float angZ);
-    static int modelS;
-    static int modelT;
-    void Draw(ModelType m, Datos_Camara camara);
+    Mars(float x, float y, float z, float ang_x, float ang_y, float ang_z);
+    static int model_s;
+    static int model_t;
+    void Draw(ModelType m, data_camera camara);
     void TimeEvolution(float t);
     ~Mars();
 };

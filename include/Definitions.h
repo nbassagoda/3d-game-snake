@@ -26,57 +26,57 @@ enum camera_type {CAMARA_FIJA, FIRST_PERSON, MOUSE, FOLLOW};
 enum m_fb {MOD_N, MOD_T};
 const float z_far = 100;
 const float z_near = 1;
-const float Field_Size = 15;
-const float Field_Limit = Field_Size - 1.2;
+const float field_size = 15;
+const float field_limit = field_size - 1.2;
 
-struct Datos_Camara {
+struct data_camera {
 	camera_type camar;
-	float posX;
-	float posY;
+	float pos_x;
+	float pos_y;
 	float posZ;
-	float posXR;
-	float posYR;
-	float posZR;
-	float direccionX;
-	float direccionY;
-	float direccionZ;
-	float normalX;
-	float normalY;
-	float normalYR;
-	float normalZ;
+	float pos_xr;
+	float pos_yr;
+	float pos_zr;
+	float direction_x;
+	float direction_y;
+	float direction_z;
+	float normal_x;
+	float normal_y;
+	float normal_yr;
+	float normal_z;
 	float phi;
 	float theta;
-	float Yup;
+	float y_up;
 	float r;
-	bool restaX;
-	bool restaY;
+	bool rest_x;
+	bool rest_y;
 };
 
-struct OBJ_POS {
-	float posX;
-	float posY;
+struct obj_pos {
+	float pos_x;
+	float pos_y;
 	float posZ;
-	float angleX;
-	float angleY;
-	float angleZ;
+	float angle_x;
+	float angle_y;
+	float angle_z;
 	float size;
 };
 
-enum En_P {L_Arriba, L_Atras, L_Adeante, L_Izq, L_Der};
-enum En_C {BLANCO, ROJO, AZUL, VERDE};
+enum in_pos {L_Arriba, L_Atras, L_Adeante, L_Izq, L_Der};
+enum in_col {BLANCO, ROJO, AZUL, VERDE};
 
-struct InfLus {
+struct light_inf {
     bool activa;
-    En_C Color;
-    En_P Posicion;
+    in_col Color;
+    in_pos Posicion;
 };
 
-enum Estado_Juego {Pausado, Activo, Gano, Perdio, Inicio, Salir};
-enum Tipo_Shape {Esfera};
-enum Tipo_Obejto {T_SOLIDO, T_PERSONAGE, T_FONDO};
-enum Clase_Objeto{C_APPLE, C_SNAKE};
-enum ModelType{MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};
+enum GameState {PAUSE, ACTIVE, WIN, LOOSE, START, QUIT};
+enum ShapeType {SPHERE};
+enum ObjectType {T_SOLID, T_CHAR, T_BACKGROUND};
+enum ObjectClass {C_APPLE, C_SNAKE};
+enum ModelType {MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};
 
-float Distancia_Puntos(float x1, float y1, float z1, float x2, float y2, float y3);
+float PointsDistance(float x1, float y1, float z1, float x2, float y2, float y3);
 
 #endif

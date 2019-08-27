@@ -2,8 +2,8 @@
 
 #include <list>
 
-#ifndef ESTADOSJUEGOS_H
-#define ESTADOSJUEGOS_H
+#ifndef GAME_STATE_H
+#define GAME_STATE_H
 
 class EstadoJuego {
 	private:
@@ -12,20 +12,20 @@ class EstadoJuego {
 		
 	public:
 		camera_type Camera;
-		bool Interpolado;
-		list<to_play>* listaAcciones;
-		float velocidad;
-		bool ModoPrueba;
+		bool interpolate;
+		list<to_play>* actions_list;
+		float speed;
+		bool TestMode;
 		bool Texturas;
-		bool FB_Mot;
-		int Puntage;
+		bool motion;
+		int score;
 		ModelType modelado;
-		InfLus luz;
-		Estado_Juego estdo;
-		static EstadoJuego* get_Instance();
-		void AgregarAccionLisa(to_play);
-		void VaciarListaAcciones();
-		int nivel;
+		light_inf luz;
+		GameState estdo;
+		static EstadoJuego* GetInstance();
+		void AddActionList(to_play);
+		void EmptyActionsList();
+		int level;
 };
 
 #endif

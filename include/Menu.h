@@ -22,7 +22,7 @@ private:
 	
 public:
 	Opcion getOpcion();
-	static Menu* get_Instance();
+	static Menu* GetInstance();
 	void AccionCambiarAriba();
 	void AccionCambiarAbajo();
 	void AccionElegir(bool der);

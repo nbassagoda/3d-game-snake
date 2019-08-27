@@ -17,7 +17,7 @@ private:
 	unsigned int CargaTextoC(const char* file, SDL_Color a);
 	unsigned int CargaTextoG(const char* file, SDL_Color a);
 	void DrawPausa();
-	void DrawInicio();
+	void DrawSTART();
 	void DrawHUD();
 	void DrawPerder();
 	void DrawGanar();
@@ -25,7 +25,7 @@ private:
 	
 public:
 	static unsigned int puto;
-	static Motor_Pantalla* get_Instance();
+	static Motor_Pantalla* GetInstance();
 	void DrawPantalla();
 };
 

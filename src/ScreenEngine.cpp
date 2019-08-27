@@ -27,7 +27,7 @@ Motor_Pantalla::Motor_Pantalla() {
 	screenWin = CargaTextura("data/Textures/Game_Win.jpg");
 }
 
-Motor_Pantalla* Motor_Pantalla::get_Instance() {
+Motor_Pantalla* Motor_Pantalla::GetInstance() {
 	if(instance == NULL) instance = new Motor_Pantalla();
 	return instance;
 }
@@ -56,7 +56,7 @@ void Motor_Pantalla::DrawHUD() {
 	glEnd();
 	//glPolygonMode(GL_FRONT,GL_FILL);
 	glDeleteTextures(1,&texto);
-	sprintf(Mensage, " %d ",EstadoJuego::get_Instance()->Puntage);
+	sprintf(Mensage, " %d ",EstadoJuego::GetInstance()->score);
 
 	texto = CargaTextoG(Mensage, a);
 
@@ -129,7 +129,7 @@ void Motor_Pantalla::DrawPausa() {
 	SDL_Color T2 = {200,0,0};
 	int PosI = 100;
 	int Tam  = 40;
-	switch (Menu::get_Instance()->getOpcion()) {
+	switch (Menu::GetInstance()->getOpcion()) {
 		case O_SolWir:
 			TI = {150,150,100};
 		break;
@@ -177,7 +177,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1, &texto);
-	switch(EstadoJuego::get_Instance()->Camera) {
+	switch(EstadoJuego::GetInstance()->Camera) {
 		case CAMARA_FIJA:
 			sprintf(Mensage, "< Fixed >");
 		break;
@@ -228,7 +228,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1,&texto);
-	switch(EstadoJuego::get_Instance()->modelado) {
+	switch(EstadoJuego::GetInstance()->modelado) {
 		case MOD_COLICION:
 			sprintf(Mensage, "< Collision >");
 		break;
@@ -277,7 +277,7 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::get_Instance()->Texturas) sprintf(Mensage, "< Activated >");
+	if(EstadoJuego::GetInstance()->Texturas) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 	
 	texto = CargaTextoC(Mensage, TEX);
@@ -317,7 +317,7 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::get_Instance()->Interpolado) sprintf(Mensage, "< Activated >");
+	if(EstadoJuego::GetInstance()->interpolate) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 
 	texto = CargaTextoC(Mensage, INTE);
@@ -357,7 +357,7 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::get_Instance()->luz.activa) sprintf(Mensage, "< Activated >");
+	if(EstadoJuego::GetInstance()->luz.activa) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 
 
@@ -397,7 +397,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1,&texto);
-	switch (EstadoJuego::get_Instance()->luz.Posicion) {
+	switch (EstadoJuego::GetInstance()->luz.Posicion) {
 		case L_Arriba:
 			sprintf(Mensage, "< Up >");
 		break;
@@ -450,7 +450,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1, &texto);
-	switch (EstadoJuego::get_Instance()->luz.Color) {
+	switch (EstadoJuego::GetInstance()->luz.Color) {
 		case BLANCO:
 			sprintf(Mensage, "< White >");
 		break;
@@ -577,7 +577,7 @@ GLuint Motor_Pantalla::CargaTextoC(const char* file, SDL_Color a) {
 	return id;
 }
 
-void Motor_Pantalla::DrawInicio() {
+void Motor_Pantalla::DrawSTART() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -624,22 +624,22 @@ void Motor_Pantalla::DrawPantalla() {
 	glMatrixMode(GL_MODELVIEW);             // Set the matrix mode to modelview
 	glLoadIdentity();
 
-	if(EstadoJuego::get_Instance()->estdo != Inicio) DrawHUD();
-	switch(EstadoJuego::get_Instance()->estdo) {
-		case Perdio:
+	if(EstadoJuego::GetInstance()->estdo != START) DrawHUD();
+	switch(EstadoJuego::GetInstance()->estdo) {
+		case LOOSE:
 			DrawPerder();
 		break;
-		case Pausado:
+		case PAUSE:
 			DrawPausa();
 		break;
-		case Inicio:
-			DrawInicio();
+		case START:
+			DrawSTART();
 		break;
-		case Gano:
+		case WIN:
 			DrawGanar();
 		break;
 	}
-	// if(EstadoJuego::get_Instance()->estdo != Inicio) DrawHUD();
+	// if(EstadoJuego::GetInstance()->estdo != START) DrawHUD();
 
 	glPopMatrix();
 	glDisable(GL_BLEND);

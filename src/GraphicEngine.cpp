@@ -6,43 +6,43 @@
 
 #define pi 3.14159265
 
-Motor_Grafico* Motor_Grafico::instance = NULL;
+GraphicEngine* GraphicEngine::instance = NULL;
 
-Motor_Grafico* Motor_Grafico::get_Instance() {
-	if (instance == NULL) instance = new Motor_Grafico();
+GraphicEngine* GraphicEngine::GetInstance() {
+	if (instance == NULL) instance = new GraphicEngine();
 	return instance;
 }
 
-Motor_Grafico::Motor_Grafico() {
+GraphicEngine::GraphicEngine() {
 	Document.open(GRAPHICS_ENGINE_DOCUMENT_PATH);
-	EstadoJuego::get_Instance()->modelado = MOD_SOLIDO;
+	EstadoJuego::GetInstance()->modelado = MOD_SOLIDO;
 	CargaAmbiente();
 	CargaModelos();
 	Camera.camar = CAMARA_FIJA;
-	Camera.posX = 0;
-	Camera.posY = 0;
+	Camera.pos_x = 0;
+	Camera.pos_y = 0;
 	Camera.posZ = 0;
 	Camera.r = 5;
-	Camera.direccionX = 0;
-	Camera.direccionY = 0;
-	Camera.direccionZ = -5;
-	Camera.normalX = 0;
-	Camera.normalY = 1;
-	Camera.normalYR = 1;
-	Camera.normalZ = 0;
+	Camera.direction_x = 0;
+	Camera.direction_y = 0;
+	Camera.direction_z = -5;
+	Camera.normal_x = 0;
+	Camera.normal_y = 1;
+	Camera.normal_yr = 1;
+	Camera.normal_z = 0;
 	Camera.phi = 0;
 	Camera.theta = pi/2;
-	Camera.Yup = 1.f;
-	Camera.restaX = false;
-	Camera.restaY = false;
+	Camera.y_up = 1.f;
+	Camera.rest_x = false;
+	Camera.rest_y = false;
 
-	EstadoJuego::get_Instance()->Texturas = true;
-	EstadoJuego::get_Instance()->luz.activa = true;
-	Document << "[Motor_Grafico] [Motor Grafico inicio correctamente]" << endl;
+	EstadoJuego::GetInstance()->Texturas = true;
+	EstadoJuego::GetInstance()->luz.activa = true;
+	Document << "[GraphicEngine] [Motor Grafico inicio correctamente]" << endl;
 }
 
-void Motor_Grafico::CargaAmbiente() {
-	glClearColor(Clear_Color, Clear_Color, Clear_Color, 1);
+void GraphicEngine::CargaAmbiente() {
+	glClearColor(clear_color, clear_color, clear_color, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(45,640.0/480.0,z_near,z_far);
@@ -54,7 +54,7 @@ void Motor_Grafico::CargaAmbiente() {
 	Document << "[CargaAmbiente] [Environment loaded]" << endl;
 }
 
-void Motor_Grafico::CargaModelos() {
+void GraphicEngine::CargaModelos() {
 	CargaTextura(TEXTURE_GRASS, GRASS_TEXTURE_PATH);
 	CargaTextura(TEXTURE_WOOD, WOOD_TEXTURE_PATH);
 	CargaTextura(TEXTURE_STONE, STONE_TEXTURE_PATH);
@@ -76,43 +76,43 @@ void Motor_Grafico::CargaModelos() {
   CargaTextura(TEXTURE_MARS, MARS_TEXTURE_PATH);
   CargaTextura(TEXTURE_NEPTUNO, NEPTUNO_TEXTURE_PATH);
 
-	Earth::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_EARTH);
-	Earth::modelT = Earth::modelS;
+	Earth::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_EARTH);
+	Earth::model_t = Earth::model_s;
 
-	Moon::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MOON);
-	Moon::modelT = Moon::modelS;
+	Moon::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MOON);
+	Moon::model_t = Moon::model_s;
 
-	Sun::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_SUN);
-	Sun::modelT = Sun::modelS;
+	Sun::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_SUN);
+	Sun::model_t = Sun::model_s;
 
-	Mercury::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MERCURY);
-	Mercury::modelT = Mercury::modelS;
+	Mercury::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_MERCURY);
+	Mercury::model_t = Mercury::model_s;
 
-	Venus::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_VENUS);
-	Venus::modelT = Venus::modelS;
+	Venus::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_VENUS);
+	Venus::model_t = Venus::model_s;
 
-	Jupiter::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_JUPITER);
-	Jupiter::modelT = Jupiter::modelS;
+	Jupiter::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_JUPITER);
+	Jupiter::model_t = Jupiter::model_s;
 
-	Mars::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_URANO);
-	Mars::modelT = Mars::modelS;
+	Mars::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_URANO);
+	Mars::model_t = Mars::model_s;
 
-	Neptuno::modelS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_NEPTUNO);
-	Neptuno::modelT = Neptuno::modelS;
+	Neptuno::model_s = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_NEPTUNO);
+	Neptuno::model_t = Neptuno::model_s;
 
 	
-	Snake::modelS = CargarObjeto::CaragarSolidTextura(SNAKE_OBJECT_PATH, TEXTURE_SNAKE);
-    Snake::modelT = Snake::modelS;
+	Snake::model_s = CargarObjeto::CaragarSolidTextura(SNAKE_OBJECT_PATH, TEXTURE_SNAKE);
+    Snake::model_t = Snake::model_s;
 
-    if (EstadoJuego::get_Instance()->nivel != 0){
-        Apple::modelS = CargarObjeto::CaragarSolidTextura(APPLE_OBJECT_PATH, TEXTURE_APPLE);
-        Apple::modelT = Apple::modelS;
+    if (EstadoJuego::GetInstance()->level != 0){
+        Apple::model_s = CargarObjeto::CaragarSolidTextura(APPLE_OBJECT_PATH, TEXTURE_APPLE);
+        Apple::model_t = Apple::model_s;
         Document << "[CargaModelos] deberia ser manzana" << endl;
     }
     else{
     	Document << "[CargaModelos] deberia ser estrella" << endl;
-        Apple::modelS = CargarObjeto::CaragarSolidTextura(STAR_OBJECT_PATH, TEXTURE_STAR);
-        Apple::modelT = Apple::modelS;
+        Apple::model_s = CargarObjeto::CaragarSolidTextura(STAR_OBJECT_PATH, TEXTURE_STAR);
+        Apple::model_t = Apple::model_s;
     }
     
     Snake::GenerateShape();
@@ -120,7 +120,7 @@ void Motor_Grafico::CargaModelos() {
     Document << "[CargaModelos] [Models loaded]" << endl;
 }
 
-void Motor_Grafico::CargaTextura(GLuint &texture, const char* texture_name) {
+void GraphicEngine::CargaTextura(GLuint &texture, const char* texture_name) {
 	FREE_IMAGE_FORMAT fif = FreeImage_GetFIFFromFilename(texture_name);
 	FIBITMAP* bitmap = FreeImage_Load(fif, texture_name);
 	bitmap = FreeImage_ConvertTo24Bits(bitmap);
@@ -143,17 +143,17 @@ void Motor_Grafico::CargaTextura(GLuint &texture, const char* texture_name) {
 	Document << "[CargaTextura] [Texture _" << texture_name << "_ loaded]" << endl;
 }
 
-void Motor_Grafico::Draw() {
+void GraphicEngine::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glEnable(GL_DEPTH_TEST);
 	gluPerspective(45.0f,(GLfloat)640/(GLfloat)480,0.1f,200.0f);
 	glMatrixMode(GL_MODELVIEW);
-	if (EstadoJuego::get_Instance()->modelado != MOD_SOLIDO) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	if (EstadoJuego::GetInstance()->modelado != MOD_SOLIDO) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	else glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	
-	if (EstadoJuego::get_Instance()->Interpolado) glShadeModel(GL_SMOOTH);
+	if (EstadoJuego::GetInstance()->interpolate) glShadeModel(GL_SMOOTH);
 	else glShadeModel(GL_FLAT);
 
 	DrawLuz();
@@ -161,7 +161,7 @@ void Motor_Grafico::Draw() {
 	DrawAmbiente();
 	DrawEsenario();
 	
-	if (!EstadoJuego::get_Instance()->luz.activa) glDisable(GL_LIGHTING);
+	if (!EstadoJuego::GetInstance()->luz.activa) glDisable(GL_LIGHTING);
 	else glEnable(GL_LIGHTING);
 	
 	DrawPersonajes();
@@ -170,43 +170,43 @@ void Motor_Grafico::Draw() {
 	DrawContexto();
 }
 
-void Motor_Grafico::DrawLuz() {
+void GraphicEngine::DrawLuz() {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	GLfloat ambient[] = {0.4f, 0.4f, 0.4f};
 	GLfloat diffuseLight[] = {1, 1, 1, 1};
 	GLfloat specularLight[] = {0.6f, 0.6f, 0.6f, 1.0f};
-	float posX,posY,posZ;
+	float pos_x,pos_y,posZ;
 	float colorR,colorG,colorB;
-	switch(EstadoJuego::get_Instance()->luz.Posicion) {
+	switch(EstadoJuego::GetInstance()->luz.Posicion) {
 		case L_Arriba:
-			posX = 0;
-			posY = 100;
+			pos_x = 0;
+			pos_y = 100;
 			posZ = 0;
 		break;
 		case L_Adeante:
-			posX = 600;
-			posY = 10;
+			pos_x = 600;
+			pos_y = 10;
 			posZ = 0;
 		break;
 		case L_Atras:
-			posX = -50;
-			posY = 10;
+			pos_x = -50;
+			pos_y = 10;
 			posZ = 0;
 		break;
 		case L_Der:
-			posX = 250;
-			posY = 10;
+			pos_x = 250;
+			pos_y = 10;
 			posZ = 30;
 		break;
 		case L_Izq:
-			posX = 250;
-			posY = 10;
+			pos_x = 250;
+			pos_y = 10;
 			posZ = -30;
 		break;
 	}
 
-	switch(EstadoJuego::get_Instance()->luz.Color) {
+	switch(EstadoJuego::GetInstance()->luz.Color) {
 		case BLANCO:
 			colorR =1;
 			colorG =1;
@@ -228,7 +228,7 @@ void Motor_Grafico::DrawLuz() {
 			colorB =1;
 		break;
 	}
-	GLfloat posicion_inicial[] = {posX,posY,posZ, 1.0f};
+	GLfloat posicion_inicial[] = {pos_x,pos_y,posZ, 1.0f};
 	GLfloat color[] = {colorR,colorG,colorB, 1.0f};
 
 
@@ -239,17 +239,17 @@ void Motor_Grafico::DrawLuz() {
 	glLightfv(GL_LIGHT0, GL_POSITION, posicion_inicial);
 }
 
-void Motor_Grafico::DrawContexto() {
-	Motor_Pantalla::get_Instance()->DrawPantalla();
+void GraphicEngine::DrawContexto() {
+	Motor_Pantalla::GetInstance()->DrawPantalla();
 }
 
 int ang = 0;
 
-void Motor_Grafico::DrawEsenario() {
+void GraphicEngine::DrawEsenario() {
 	float x = 0;
-	float y = Field_Size;
+	float y = field_size;
 	float z = 0;
-	float size = Field_Size;
+	float size = field_size;
 	float factor = 0.5;
 	
 	glPushMatrix();
@@ -257,11 +257,11 @@ void Motor_Grafico::DrawEsenario() {
 	
 
 
-	if(EstadoJuego::get_Instance()->Texturas) glEnable(GL_TEXTURE_2D);
+	if(EstadoJuego::GetInstance()->Texturas) glEnable(GL_TEXTURE_2D);
 
 	glEnable(GL_TEXTURE_2D);
 
-	if (EstadoJuego::get_Instance()->nivel == 0){
+	if (EstadoJuego::GetInstance()->level == 0){
 	  glBindTexture(GL_TEXTURE_2D, TEXTURE_STONE);
 	}
 	else{
@@ -293,7 +293,7 @@ void Motor_Grafico::DrawEsenario() {
 		glTexCoord2d(0,0);glVertex3f(x - size, y - size, z - size); // V5
 	glEnd();
 	
-	if (EstadoJuego::get_Instance()->nivel == 0){
+	if (EstadoJuego::GetInstance()->level == 0){
 		glBindTexture(GL_TEXTURE_2D, TEXTURE_GRASS);
 	}
 	
@@ -304,7 +304,7 @@ void Motor_Grafico::DrawEsenario() {
 		glTexCoord2d(0,1);glVertex3f(x - size, y - size, z + size); // V8
 	glEnd();
 
-	if (EstadoJuego::get_Instance()->nivel == 0)
+	if (EstadoJuego::GetInstance()->level == 0)
 		glBindTexture(GL_TEXTURE_2D, TEXTURE_WOOD);
 	else
 		glBindTexture(GL_TEXTURE_2D, TEXTURE_GALAXY);
@@ -360,7 +360,7 @@ void Motor_Grafico::DrawEsenario() {
 	
 	glDisable(GL_TEXTURE_2D);
 	
-	if (EstadoJuego::get_Instance()->nivel != 0){
+	if (EstadoJuego::GetInstance()->level != 0){
 		ang += 0.6;
 		
 
@@ -371,165 +371,165 @@ void Motor_Grafico::DrawEsenario() {
 		glTranslatef(0,2.5,0);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Sun::modelS);
+			glCallList(Sun::model_s);
 		//}
 
 
 		glTranslatef(-10,0,2);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Earth::modelS);
+			glCallList(Earth::model_s);
 		//}
 
 		glTranslatef(3,0,3);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Moon::modelS);
+			glCallList(Moon::model_s);
 		//}
 		glTranslatef(5,0,10);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
 		//if(m != MOD_COLICION) {
-			glCallList(Mars::modelS);
+			glCallList(Mars::model_s);
 		//}
 		glTranslatef(-3,0,-7);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(2,0,-2);
 		//if(m != MOD_COLICION) {
-			glCallList(Mercury::modelS);
+			glCallList(Mercury::model_s);
 		//}
 		glTranslatef(4,0,3);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Venus::modelS);
+			glCallList(Venus::model_s);
 
 		glTranslatef(3,0,5);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Jupiter::modelS);
+			glCallList(Jupiter::model_s);
 
 		glTranslatef(-8,0,1);
 		glRotatef(ang,0,1,0);
 		glScaled(1,1,1);
-		if(EstadoJuego::get_Instance()->Texturas)
+		if(EstadoJuego::GetInstance()->Texturas)
 			glEnable(GL_TEXTURE_2D);
 			glColor3f(1,0,0);
-			glCallList(Neptuno::modelS);
+			glCallList(Neptuno::model_s);
 		glDisable(GL_ALPHA);
 		glPopMatrix();
 	}
-	/*map<int,Objeto*>* ambiente = Motor_Juego::get_Instance()->getAmbiente();
+	/*map<int,Objeto*>* ambiente = GameEngine::GetInstance()->GetEnv();
 	map<int, Objeto*>::iterator it;
 	for (it = ambiente->begin(); it != ambiente->end(); ++it){
 		if (it->first == 0)
-			it->second->Draw(EstadoJuego::get_Instance()->modelado, Camera);
+			it->second->Draw(EstadoJuego::GetInstance()->modelado, Camera);
 	}*/
 
 }
 
-void Motor_Grafico::DrawCamara() {
-	Snake* PersonageControlado = Motor_Juego::get_Instance()->getPersonajeControlable();
+void GraphicEngine::DrawCamara() {
+	Snake* PersonageControlado = GameEngine::GetInstance()->GetCharacter();
 	glLoadIdentity();
-	switch (EstadoJuego::get_Instance()->Camera) {
+	switch (EstadoJuego::GetInstance()->Camera) {
 		case CAMARA_FIJA:
 			if(PersonageControlado != NULL) {
-				Camera.posX = PersonageControlado->getPos().posX;
-				Camera.direccionX = PersonageControlado->getPos().posX;
-				Camera.direccionZ = PersonageControlado->getPos().posZ;
+				Camera.pos_x = PersonageControlado->getPos().pos_x;
+				Camera.direction_x = PersonageControlado->getPos().pos_x;
+				Camera.direction_z = PersonageControlado->getPos().posZ;
 			}
-			Camera.posY = 5;
+			Camera.pos_y = 5;
 			Camera.posZ = 15;
-			Camera.direccionY =  3;
-			Camera.normalX = 0;
-			Camera.normalY = 1;
-			Camera.normalZ = 0;
-			Camera.posXR = Camera.posX;
-			Camera.posYR = Camera.posY;
-			Camera.posZR = Camera.posZ;
+			Camera.direction_y =  3;
+			Camera.normal_x = 0;
+			Camera.normal_y = 1;
+			Camera.normal_z = 0;
+			Camera.pos_xr = Camera.pos_x;
+			Camera.pos_yr = Camera.pos_y;
+			Camera.pos_zr = Camera.posZ;
 		break;
 		case FOLLOW:
 			if(PersonageControlado != NULL) {
-				Camera.posX = (PersonageControlado->getPos().posX - sin(PersonageControlado->get_anguloActual())*10);
-				Camera.direccionX = PersonageControlado->getPos().posX + sin(PersonageControlado->get_anguloActual());
-				Camera.direccionZ =PersonageControlado->getPos().posZ + cos(PersonageControlado->get_anguloActual());
+				Camera.pos_x = (PersonageControlado->getPos().pos_x - sin(PersonageControlado->get_anguloActual())*10);
+				Camera.direction_x = PersonageControlado->getPos().pos_x + sin(PersonageControlado->get_anguloActual());
+				Camera.direction_z =PersonageControlado->getPos().posZ + cos(PersonageControlado->get_anguloActual());
 				Camera.posZ = PersonageControlado->getPos().posZ - cos(PersonageControlado->get_anguloActual())*10;
 			}
-			Camera.posY = 3;
-			Camera.direccionY =  3;
-			Camera.normalX = 0;
-			Camera.normalY = 1;
-			Camera.normalZ = 0;
+			Camera.pos_y = 3;
+			Camera.direction_y =  3;
+			Camera.normal_x = 0;
+			Camera.normal_y = 1;
+			Camera.normal_z = 0;
 		break;
 		case FIRST_PERSON:
 			if(PersonageControlado != NULL) {
-				Camera.posX = PersonageControlado->getPos().posX;
+				Camera.pos_x = PersonageControlado->getPos().pos_x;
 				Camera.posZ = PersonageControlado->getPos().posZ;
-				Camera.direccionX = PersonageControlado->getPos().posX + sin(PersonageControlado->get_anguloActual());
-				Camera.direccionZ = PersonageControlado->getPos().posZ + cos(PersonageControlado->get_anguloActual());
-				Camera.posY = 0.5;
-				Camera.direccionY = 0.5;
+				Camera.direction_x = PersonageControlado->getPos().pos_x + sin(PersonageControlado->get_anguloActual());
+				Camera.direction_z = PersonageControlado->getPos().posZ + cos(PersonageControlado->get_anguloActual());
+				Camera.pos_y = 0.5;
+				Camera.direction_y = 0.5;
 			}
-			Camera.normalX = 0;
-			Camera.normalY = 1;
-			Camera.normalZ = 0;
+			Camera.normal_x = 0;
+			Camera.normal_y = 1;
+			Camera.normal_z = 0;
 		break;
 		case MOUSE:
 			if(PersonageControlado != NULL) {
-				Camera.direccionX = (PersonageControlado->getPos().posX);
-				Camera.direccionZ = PersonageControlado->getPos().posZ;
-				Camera.direccionY =  PersonageControlado->getPos().posY;
-				Camera.posX =Camera.posXR + Camera.direccionX;
-				Camera.posY = Camera.posYR;
-				Camera.posZ=Camera.posZR;
-				/*Camera.posX = PersonageControlado->getPos().posX;
-				Camera.direccionX = 0;
-				Camera.direccionZ = 0;
-				Camera.direccionY =  0;*/
+				Camera.direction_x = (PersonageControlado->getPos().pos_x);
+				Camera.direction_z = PersonageControlado->getPos().posZ;
+				Camera.direction_y =  PersonageControlado->getPos().pos_y;
+				Camera.pos_x =Camera.pos_xr + Camera.direction_x;
+				Camera.pos_y = Camera.pos_yr;
+				Camera.posZ=Camera.pos_zr;
+				/*Camera.pos_x = PersonageControlado->getPos().pos_x;
+				Camera.direction_x = 0;
+				Camera.direction_z = 0;
+				Camera.direction_y =  0;*/
 			}
-			Camera.normalX = 0;
-			Camera.normalY =Camera.normalYR;
-			Camera.normalZ = 0;
+			Camera.normal_x = 0;
+			Camera.normal_y =Camera.normal_yr;
+			Camera.normal_z = 0;
 		break;
 	}
-	gluLookAt(Camera.posX , Camera.posY, Camera.posZ, Camera.direccionX, Camera.direccionY, Camera.direccionZ, Camera.normalX, Camera.normalY, Camera.normalZ);
+	gluLookAt(Camera.pos_x , Camera.pos_y, Camera.posZ, Camera.direction_x, Camera.direction_y, Camera.direction_z, Camera.normal_x, Camera.normal_y, Camera.normal_z);
 }
 
-void Motor_Grafico::DrawPersonajes() {
-	Snake* personage = Motor_Juego::get_Instance()->getPersonajeControlable();
-	if (personage != NULL) personage->Draw(EstadoJuego::get_Instance()->modelado, Camera);
+void GraphicEngine::DrawPersonajes() {
+	Snake* personage = GameEngine::GetInstance()->GetCharacter();
+	if (personage != NULL) personage->Draw(EstadoJuego::GetInstance()->modelado, Camera);
 }
 
-void Motor_Grafico::DrawAmbiente() {
-	Objeto* Tem = Motor_Juego::get_Instance()->getElemento();
-	if (Tem != NULL) Tem->Draw(EstadoJuego::get_Instance()->modelado, Camera);
+void GraphicEngine::DrawAmbiente() {
+	Objeto* Tem = GameEngine::GetInstance()->GetElement();
+	if (Tem != NULL) Tem->Draw(EstadoJuego::GetInstance()->modelado, Camera);
 }
 
-void Motor_Grafico::CambiarCamara() {
-	switch (EstadoJuego::get_Instance()->Camera) {
+void GraphicEngine::CambiarCamara() {
+	switch (EstadoJuego::GetInstance()->Camera) {
 		case CAMARA_FIJA:
 			Camera.camar = MOUSE;
 		break;
@@ -543,28 +543,28 @@ void Motor_Grafico::CambiarCamara() {
 			Camera.camar = FOLLOW;
 		break;
 	}
-	EstadoJuego::get_Instance()->Camera = Camera.camar;
+	EstadoJuego::GetInstance()->Camera = Camera.camar;
 }
 
-void Motor_Grafico::CambiarModo() {
+void GraphicEngine::CambiarModo() {
 	Document.open(GRAPHICS_ENGINE_DOCUMENT_PATH);
-	switch (EstadoJuego::get_Instance()->modelado) {
+	switch (EstadoJuego::GetInstance()->modelado) {
 		case MOD_SOLIDO:
-			EstadoJuego::get_Instance()->modelado = MOD_LINEAS;
+			EstadoJuego::GetInstance()->modelado = MOD_LINEAS;
 			Document << "[GRAPHIC ENGINE] Cambio Modo: MOD_SOLIDO" << endl;
 		break;
 		case MOD_LINEAS:
-			EstadoJuego::get_Instance()->modelado = MOD_COLICION;
+			EstadoJuego::GetInstance()->modelado = MOD_COLICION;
 			Document << "[GRAPHIC ENGINE] Cambio Modo: MOD_LINEAS" << endl;
 		break;
 		case MOD_COLICION:
-			EstadoJuego::get_Instance()->modelado = MOD_SOLIDO;
+			EstadoJuego::GetInstance()->modelado = MOD_SOLIDO;
 			Document << "[GRAPHIC ENGINE] Cambio Modo: MOD_COLICION" << endl;
 		break;
 	}
 }
 
-void Motor_Grafico::MotionCamara(int x, int y) {
+void GraphicEngine::MotionCamara(int x, int y) {
 	Document.open(GRAPHICS_ENGINE_DOCUMENT_PATH);
 	float deltaY = (float)y /25;
 	float deltaX = (float)-x/25;
@@ -595,23 +595,23 @@ void Motor_Grafico::MotionCamara(int x, int y) {
 	float yNuevo = radio*cos(Camera.theta) ; // y
 	float zNuevo = radio*sin(Camera.theta)*cos(Camera.phi);
 	
-	if (((Camera.theta)> 0)&& (Camera.theta)< pi) Camera.normalYR = 1;
-	else Camera.normalYR = -1;
+	if (((Camera.theta)> 0)&& (Camera.theta)< pi) Camera.normal_yr = 1;
+	else Camera.normal_yr = -1;
 	
-	Camera.posXR = xNuevo;
-	Camera.posYR = yNuevo;
-	Camera.posZR = zNuevo;
+	Camera.pos_xr = xNuevo;
+	Camera.pos_yr = yNuevo;
+	Camera.pos_zr = zNuevo;
 }
 
-void Motor_Grafico::ActivarDesactivarLuz() {
-	EstadoJuego::get_Instance()->luz.activa =!EstadoJuego::get_Instance()->luz.activa;
+void GraphicEngine::ActivarDesactivarLuz() {
+	EstadoJuego::GetInstance()->luz.activa =!EstadoJuego::GetInstance()->luz.activa;
 }
 
-void Motor_Grafico::ActivarDesctivarTextura() {
-	EstadoJuego::get_Instance()->Texturas = !EstadoJuego::get_Instance()->Texturas;
+void GraphicEngine::ActivarDesctivarTextura() {
+	EstadoJuego::GetInstance()->Texturas = !EstadoJuego::GetInstance()->Texturas;
 }
 
-void Motor_Grafico::ruedita(bool cmp) {
+void GraphicEngine::ruedita(bool cmp) {
 	if (cmp == false) {
 		if (Camera.r < 15) {
 			Camera.r += 0.9;

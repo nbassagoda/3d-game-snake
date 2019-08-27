@@ -3,30 +3,30 @@
 
 #include <map>
 
-#ifndef MOTOR_DE_EVENTOS_H
-#define MOTOR_DE_EVENTOS_H
+#ifndef EVENTS_ENGINE_H
+#define EVENTS_ENGINE_H
 
-class Motor_Eventos {
+class EventsEngine {
 	private:
-		static Motor_Eventos* instance;
+		static EventsEngine* instance;
 		const char* EVENTS_DOCUMENT_PATH = "data/Info/Out_Events_Engine.txt";
 		
 		// Document.
 		ofstream Document;
 		
-		Motor_Eventos();
-		bool Apretados_plus;
-		bool Apretados_min;
-		bool quieroMover;
-		bool quieroRotar;
-		bool direccionRotacion;
+		EventsEngine();
+		bool hit_plus;
+		bool hit_min;
+		bool move;
+		bool rotate;
+		bool rotate_direction;
 		
 	public:
-		static Motor_Eventos* get_Instance();
-		void RealizarEvento(SDL_Event event);
-		void Evolucion_Estados(float time);
-		bool Quiero_Rotar();
-		bool Direccion_Rotacion();
+		static EventsEngine* GetInstance();
+		void PerformEvent(SDL_Event event);
+		void ChangeState(float time);
+		bool Rotate();
+		bool RotationDirection();
 };
 
 #endif

@@ -21,4 +21,4 @@
 [CargaTextura] [Texture _data/Textures/Neptuno.jpeg_ loaded]
 [CargaModelos] deberia ser estrella
 [CargaModelos] [Models loaded]
-[Motor_Grafico] [Motor Grafico inicio correctamente]
+[GraphicEngine] [Motor Grafico inicio correctamente]

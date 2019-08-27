@@ -53,8 +53,8 @@ int main(int argc, char* argv[]) {
 	bool running = true;
 	
 	// Initializes the game engines.
-	Motor_Grafico* motor_grafico = Motor_Grafico::get_Instance(); Document << "[YES] [Motor_Grafico successfully setted] " << endl;
-	Motor_Eventos* motor_eventos = Motor_Eventos::get_Instance(); Document << "[YES] [Motor_Eventos successfully setted] " << endl;
+	GraphicEngine* motor_grafico = GraphicEngine::GetInstance(); Document << "[YES] [GraphicEngine successfully setted] " << endl;
+	EventsEngine* motor_eventos = EventsEngine::GetInstance(); Document << "[YES] [EventsEngine successfully setted] " << endl;
 	
 	SDL_Event event;
 	Uint32 start = SDL_GetTicks();
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 	// Main loop.
 	Document << "[YES] [Main loop successfully started] " << endl;
 	while(running) {
-		motor_eventos->RealizarEvento(event);
+		motor_eventos->PerformEvent(event);
 		
 		SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 		
@@ -72,9 +72,9 @@ int main(int argc, char* argv[]) {
 		start = SDL_GetTicks();
 		SDL_GL_SwapBuffers();
 		SDL_Flip(screen);
-		motor_eventos->Evolucion_Estados(tiempo*0.002);
+		motor_eventos->ChangeState(tiempo*0.002);
 		
-		if (Motor_Juego::get_Instance()->getEstado() == Salir) running = false;
+		if (GameEngine::GetInstance()->GetState() == QUIT) running = false;
 	}
 	
 	// Closes the file currently associated with the object, disassociating it from the stream.

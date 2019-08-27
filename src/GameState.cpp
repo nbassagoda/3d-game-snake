@@ -2,31 +2,31 @@
 
 EstadoJuego* EstadoJuego::instance = NULL;
 
-EstadoJuego* EstadoJuego::get_Instance() {
+EstadoJuego* EstadoJuego::GetInstance() {
 	if(instance == NULL) instance = new EstadoJuego();
 	return instance;
 }
 
 EstadoJuego::EstadoJuego() {
-	listaAcciones = new list<to_play>;
-	velocidad = 1;
+	actions_list = new list<to_play>;
+	speed = 1;
 	modelado = MOD_SOLIDO;
 	Camera = CAMARA_FIJA;
-	Interpolado = true;
-	estdo = Inicio;
-	Puntage = 0;
-	ModoPrueba = false;
+	interpolate = true;
+	estdo = START;
+	score = 0;
+	TestMode = false;
 	luz.activa = true;
 	luz.Posicion = L_Arriba;
 	luz.Color = BLANCO;
-	FB_Mot = false;
-	nivel = 0;
+	motion = false;
+	level = 0;
 }
 
-void EstadoJuego::AgregarAccionLisa(to_play a) {
-	listaAcciones->push_back(a);
+void EstadoJuego::AddActionList(to_play a) {
+	actions_list->push_back(a);
 }
 
-void EstadoJuego::VaciarListaAcciones() {
-	listaAcciones->clear();
+void EstadoJuego::EmptyActionsList() {
+	actions_list->clear();
 }

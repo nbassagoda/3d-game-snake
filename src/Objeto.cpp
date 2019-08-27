@@ -12,16 +12,16 @@ void Objeto::SetTamanio(float size) {
 }
 
 void Objeto::SetPosicion(float x,float y,float z) {
-	_posicion.posX = x;
-	_posicion.posY = y;
+	_posicion.pos_x = x;
+	_posicion.pos_y = y;
 	_posicion.posZ = z;
 }
 
-OBJ_POS Objeto::getPos() {
+obj_pos Objeto::getPos() {
 	return _posicion;
 }
 
-Clase_Objeto Objeto::getClase() {
+ObjectClass Objeto::getClase() {
 	return _clase;
 }
 
@@ -29,8 +29,8 @@ list<Shape*>* Objeto::getShape() {
 	return _Shape;
 }
 
-void Objeto::AgregarColicion(int id,Clase_Objeto tipo) {
-	_Coliciones->insert(pair<int, Clase_Objeto>(id,tipo));
+void Objeto::AgregarColicion(int id,ObjectClass tipo) {
+	_Coliciones->insert(pair<int, ObjectClass>(id,tipo));
 }
 
 void Objeto::VaciarColiciones() {
@@ -39,7 +39,7 @@ void Objeto::VaciarColiciones() {
 	//delete(it->second);
 	_Coliciones->clear();
 	delete(_Coliciones);
-	_Coliciones = new map<int,Clase_Objeto>();
+	_Coliciones = new map<int,ObjectClass>();
 }
 
 bool Objeto::Colicion(Objeto* o) {
@@ -57,7 +57,7 @@ bool Objeto::Colicion(Objeto* o) {
 		}
 	}
 	if (colicionaron) {
-		_Coliciones->insert(pair<int, Clase_Objeto>(o->getId(),o->_clase));
+		_Coliciones->insert(pair<int, ObjectClass>(o->getId(),o->_clase));
 		o->AgregarColicion(getId(),_clase);
 	}
 	return(colicionaron);
