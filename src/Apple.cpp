@@ -3,7 +3,7 @@
 int Apple::ModeloS = 0;
 int Apple::ModeloT = 0;
 
-list<Forma*>* Apple::formaApple = new list<Forma*>();
+list<Shape*>* Apple::formaApple = new list<Shape*>();
 
 Apple::Apple(float x, float y, float z, float angX, float angY, float angZ) {
 	_posicion.posX = x;
@@ -17,11 +17,11 @@ Apple::Apple(float x, float y, float z, float angX, float angY, float angZ) {
 	_tipo = T_PERSONAGE;
 	_clase = C_APPLE;
 	_Coliciones = new map<int, Clase_Objeto>();
-	_Forma = formaApple;
+	_Shape = formaApple;
 }
 
-void Apple::GenerarForma() {
-	formaApple->push_back(new Forma_Esfera(0, 0, 10, 0.5));
+void Apple::GenerateShape() {
+	formaApple->push_back(new ShapeSphere(0, 0, 10, 0.5));
 }
 
 void Apple::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
@@ -41,10 +41,10 @@ void Apple::Dibujar(Tipo_Modelo m, Datos_Camara camara) {
 		if(m != MOD_COLICION) {
 			glCallList(ModeloS);
 		} else {
-			list<Forma*>::iterator it;
+			list<Shape*>::iterator it;
 			glColor3f(0,1,0);
 			for (it = formaApple->begin();it != formaApple->end(); it++) {
-				Forma_Esfera* forma = dynamic_cast<Forma_Esfera*>(*it);
+				ShapeSphere* forma = dynamic_cast<ShapeSphere*>(*it);
 				glPushMatrix();
 				glTranslated(forma->posX, forma->posY, forma->posZ);
 				glScaled(forma->radio, forma->radio, forma->radio);

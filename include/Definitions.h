@@ -72,7 +72,7 @@ struct InfLus {
 };
 
 enum Estado_Juego {Pausado, Activo, Gano, Perdio, Inicio, Salir};
-enum Tipo_Forma {Esfera};
+enum Tipo_Shape {Esfera};
 enum Tipo_Obejto {T_SOLIDO, T_PERSONAGE, T_FONDO};
 enum Clase_Objeto{C_APPLE, C_SNAKE};
 enum Tipo_Modelo{MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};

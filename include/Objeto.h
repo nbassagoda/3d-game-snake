@@ -17,7 +17,7 @@ class Objeto{
 		Tipo_Obejto _tipo;
 		int _id;
 		Clase_Objeto _clase;
-		list<Forma*>* _Forma;
+		list<Shape*>* _Shape;
 		map<int, Clase_Objeto>* _Coliciones;
 
 	public:
@@ -31,7 +31,7 @@ class Objeto{
 		//Genera las Acciones que corresponden a las coliciones de la lista de Coliciones
 		void VaciarColiciones();
 		//Vacia la lista de Coliciones
-		list<Forma*>* getForma();
+		list<Shape*>* getShape();
 		bool Colicion(Objeto* o);
 		//Rutina de colicion con el objeto o
 		virtual void Dibujar(Tipo_Modelo m,Datos_Camara camara){};

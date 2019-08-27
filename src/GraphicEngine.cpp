@@ -62,19 +62,19 @@ void Motor_Grafico::CargaModelos() {
 	CargaTextura(TEXTURE_APPLE, APPLE_TEXTURE_PATH);
 	CargaTextura(TEXTURE_GALAXY, GALAXY_TEXTURE_PATH);
 	CargaTextura(TEXTURE_GRASS, GRASS_TEXTURE_PATH);
-    CargaTextura(TEXTURE_WOOD, WOOD_TEXTURE_PATH);
-    CargaTextura(TEXTURE_STONE, STONE_TEXTURE_PATH);
-    CargaTextura(TEXTURE_SNAKE, SNAKE_TEXTURE_PATH);
-    CargaTextura(TEXTURE_APPLE, APPLE_TEXTURE_PATH);
-    CargaTextura(TEXTURE_STAR, STAR_TEXTURE_PATH);
-    CargaTextura(TEXTURE_EARTH, EARTH_TEXTURE_PATH);
-    CargaTextura(TEXTURE_MOON, MOON_TEXTURE_PATH);
-    CargaTextura(TEXTURE_SUN, SUN_TEXTURE_PATH);
-    CargaTextura(TEXTURE_MERCURY, MERCURY_TEXTURE_PATH);
-    CargaTextura(TEXTURE_VENUS, VENUS_TEXTURE_PATH);
-    CargaTextura(TEXTURE_JUPITER, JUPITER_TEXTURE_PATH);
-    CargaTextura(TEXTURE_MARS, MARS_TEXTURE_PATH);
-    CargaTextura(TEXTURE_NEPTUNO, NEPTUNO_TEXTURE_PATH);
+  CargaTextura(TEXTURE_WOOD, WOOD_TEXTURE_PATH);
+  CargaTextura(TEXTURE_STONE, STONE_TEXTURE_PATH);
+  CargaTextura(TEXTURE_SNAKE, SNAKE_TEXTURE_PATH);
+  CargaTextura(TEXTURE_APPLE, APPLE_TEXTURE_PATH);
+  CargaTextura(TEXTURE_STAR, STAR_TEXTURE_PATH);
+  CargaTextura(TEXTURE_EARTH, EARTH_TEXTURE_PATH);
+  CargaTextura(TEXTURE_MOON, MOON_TEXTURE_PATH);
+  CargaTextura(TEXTURE_SUN, SUN_TEXTURE_PATH);
+  CargaTextura(TEXTURE_MERCURY, MERCURY_TEXTURE_PATH);
+  CargaTextura(TEXTURE_VENUS, VENUS_TEXTURE_PATH);
+  CargaTextura(TEXTURE_JUPITER, JUPITER_TEXTURE_PATH);
+  CargaTextura(TEXTURE_MARS, MARS_TEXTURE_PATH);
+  CargaTextura(TEXTURE_NEPTUNO, NEPTUNO_TEXTURE_PATH);
 
 	Earth::ModeloS = CargarObjeto::CaragarSolidTextura(PLANET_OBJECT_PATH, TEXTURE_EARTH);
 	Earth::ModeloT = Earth::ModeloS;
@@ -115,8 +115,8 @@ void Motor_Grafico::CargaModelos() {
         Apple::ModeloT = Apple::ModeloS;
     }
     
-    Snake::GenerarForma();
-    Apple::GenerarForma();
+    Snake::GenerateShape();
+    Apple::GenerateShape();
     Document << "[CargaModelos] [Models loaded]" << endl;
 }
 

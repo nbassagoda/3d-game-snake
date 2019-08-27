@@ -25,8 +25,8 @@ Clase_Objeto Objeto::getClase() {
 	return _clase;
 }
 
-list<Forma*>* Objeto::getForma() {
-	return _Forma;
+list<Shape*>* Objeto::getShape() {
+	return _Shape;
 }
 
 void Objeto::AgregarColicion(int id,Clase_Objeto tipo) {
@@ -45,16 +45,14 @@ void Objeto::VaciarColiciones() {
 bool Objeto::Colicion(Objeto* o) {
 	ofstream Document;
 	Document.open("bin/Info/Game_Engine2.txt");
-	list<Forma*>* formas = o->getForma();
+	list<Shape*>* formas = o->getShape();
 	bool colicionaron = false;
-	list<Forma*>::const_iterator it1;
-	for(it1 = _Forma->begin(); (it1 != _Forma->end())&&(!colicionaron); ++it1) {
-		Document << "[Ser] [LEGUEEEEEEEEEEEEEEEEEEEEEEEEEEE] " << endl;
-		Forma* forma1 = *it1;
-		list<Forma*>::const_iterator it2;
+	list<Shape*>::const_iterator it1;
+	for(it1 = _Shape->begin(); (it1 != _Shape->end())&&(!colicionaron); ++it1) {
+		Shape* forma1 = *it1;
+		list<Shape*>::const_iterator it2;
 		for(it2 = formas->begin(); (it2 != formas->end())&&(!colicionaron); ++it2) {
-			Document << "[Apple] [LEGUEEEEEEEEEEEEEEEEEEEEEEEEEEE] " << endl;
-			Forma* forma2 = *it2;
+			Shape* forma2 = *it2;
 			colicionaron = forma1->Coliciona(forma2, getPos(), o->getPos());
 		}
 	}

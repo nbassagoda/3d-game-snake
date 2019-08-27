@@ -14,7 +14,7 @@ class Snake : public Objeto {
 		float anguloRad_Ajuste;
 		float anguloGra_Actual;
 		float anguloGra_Ajuste;
-		static list<Forma*>* formaSnake;
+		static list<Shape*>* formaSnake;
 		float _ColorR;
 		float _ColorG;
 		float _ColorB;
@@ -23,7 +23,7 @@ class Snake : public Objeto {
 		Snake(float x, float y, float z, float angX, float angY, float angZ);
 		static GLint ModeloS;
 		static GLint ModeloT;
-		static void GenerarForma();
+		static void GenerateShape();
 		void Dibujar(Tipo_Modelo m, Datos_Camara camara);
 		void EvolucionTiempo(float t);
 		bool AccionColiccion();

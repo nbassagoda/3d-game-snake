@@ -1,6 +1,6 @@
 #include "../include/ShapeSphere.h"
 
-Forma_Esfera::Forma_Esfera(float X, float Y, float Z, float R) {
+ShapeSphere::ShapeSphere(float X, float Y, float Z, float R) {
 	posX = X;
 	posY = Y;
 	posZ = Z;
@@ -8,17 +8,17 @@ Forma_Esfera::Forma_Esfera(float X, float Y, float Z, float R) {
 	type = Esfera;
 }
 
-bool Forma_Esfera::Coliciona(Forma* F, OBJ_POS mine, OBJ_POS other) {
+bool ShapeSphere::Coliciona(Shape* F, OBJ_POS mine, OBJ_POS other) {
 	bool result = false;
 	switch(F->get_Type()) {
 		case Esfera:
-			result = Coliciona_Esfera(dynamic_cast<Forma_Esfera*>(F), mine, other);
+			result = ColicionaSphere(dynamic_cast<ShapeSphere*>(F), mine, other);
 		break;
 	}
 	return result;
 }
 
-bool Forma_Esfera::Coliciona_Esfera(Forma_Esfera* F, OBJ_POS mine,OBJ_POS other) {
+bool ShapeSphere::ColicionaSphere(ShapeSphere* F, OBJ_POS mine,OBJ_POS other) {
 	float R1;
 	float R2 = radio + F->radio;
 	float X = mine.posX - other.posX;

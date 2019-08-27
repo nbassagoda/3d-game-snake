@@ -7,7 +7,7 @@
 GLint Snake::ModeloS = 0;
 GLint Snake::ModeloT = 0;
 
-list<Forma*>* Snake::formaSnake = new list<Forma*>();
+list<Shape*>* Snake::formaSnake = new list<Shape*>();
 
 Snake::~Snake() {
 	delete(_Coliciones);
@@ -29,7 +29,7 @@ Snake::Snake(float x, float y, float z, float angX, float angY, float angZ) {
 	_tipo = T_PERSONAGE;
 	_clase = C_SNAKE;
 	_Coliciones = new map<int, Clase_Objeto>();
-	_Forma = formaSnake;
+	_Shape = formaSnake;
 	srand((unsigned)time(NULL));
 	_ColorR=((float) rand() / (RAND_MAX+1));
 	_ColorG=((float) rand() / (RAND_MAX+1));
@@ -81,10 +81,10 @@ void Snake::Dibujar(Tipo_Modelo m,Datos_Camara Camera) {
 			glCallList(ModeloS);
 	} else {
 		glDisable(GL_TEXTURE_2D);
-		list<Forma*>::iterator it;
+		list<Shape*>::iterator it;
 		glColor3f(0,1,1);
 		for (it = formaSnake->begin();it != formaSnake->end(); it++) {
-			Forma_Esfera* forma = dynamic_cast<Forma_Esfera*>(*it);
+			ShapeSphere* forma = dynamic_cast<ShapeSphere*>(*it);
 			glPushMatrix();
 			glTranslated(forma->posX, forma->posY, forma->posZ);
 			glScaled(forma->radio, forma->radio, forma->radio);
@@ -97,8 +97,8 @@ void Snake::Dibujar(Tipo_Modelo m,Datos_Camara Camera) {
 	glPopMatrix();
 }
 
-void Snake::GenerarForma() {
-	formaSnake->push_back(new Forma_Esfera(0,0,0,1));
+void Snake::GenerateShape() {
+	formaSnake->push_back(new ShapeSphere(0,0,0,1));
 }
 
 bool Snake::AccionColiccion() {

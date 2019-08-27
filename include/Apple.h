@@ -9,13 +9,13 @@ using namespace std;
 
 class Apple: public Objeto {
 	protected:
-		static list<Forma*>* formaApple;
+		static list<Shape*>* formaApple;
 	
 	public:
 		Apple(float x, float y, float z, float angX, float angY, float angZ);
 		static int ModeloS;
 		static int ModeloT;
-		static void GenerarForma();
+		static void GenerateShape();
 		void Dibujar(Tipo_Modelo m, Datos_Camara camara);
 		void EvolucionTiempo(float t);
 		bool AccionColiccion();

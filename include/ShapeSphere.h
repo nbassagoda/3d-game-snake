@@ -3,17 +3,17 @@
 #ifndef FORMA_ESFER_H
 #define FORMA_ESFER_H
 
-class Forma_Esfera: public Forma {
+class ShapeSphere: public Shape {
 	private:
-		bool Coliciona_Esfera(Forma_Esfera* f, OBJ_POS mia, OBJ_POS otro);
+		bool ColicionaSphere(ShapeSphere* f, OBJ_POS mia, OBJ_POS otro);
 
 	public:
-		Forma_Esfera(float X, float Y, float Z, float R);
+		ShapeSphere(float X, float Y, float Z, float R);
 		float posX;
 		float posY;
 		float posZ;
 		float radio;
-		bool Coliciona(Forma* f, OBJ_POS mine, OBJ_POS other);
+		bool Coliciona(Shape* f, OBJ_POS mine, OBJ_POS other);
 };
 
 #endif

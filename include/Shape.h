@@ -3,13 +3,13 @@
 #ifndef FORMA_H
 #define FORMA_H
 
-class Forma {
+class Shape {
 	protected:
-		Tipo_Forma type;
+		Tipo_Shape type;
 		
 	public:
-		virtual bool Coliciona(Forma* f, OBJ_POS mine, OBJ_POS other) = 0;
-		Tipo_Forma get_Type();
+		virtual bool Coliciona(Shape* f, OBJ_POS mine, OBJ_POS other) = 0;
+		Tipo_Shape get_Type();
 };
 
 #endif
