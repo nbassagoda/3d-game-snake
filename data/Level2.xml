@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<Level2>
+	<Star posX="7" posY="0" posZ="4"/>
+	<Star posX="1" posY="0" posZ="4"/>
+	<Star posX="0" posY="0" posZ="0"/>
+	<Star posX="10" posY="0" posZ="10"/>
+	<Star posX="7" posY="0" posZ="9"/>
+	<Star posX="2" posY="0" posZ="8"/>
+	<Star posX="6" posY="0" posZ="2"/>
+	<Star posX="5" posY="0" posZ="0"/>
+	<Star posX="0" posY="0" posZ="3"/>
+	<Star posX="3" posY="0" posZ="11"/>
+	<Star posX="7" posY="0" posZ="4"/>
+	<Star posX="1" posY="0" posZ="4"/>
+	<Star posX="0" posY="0" posZ="0"/>
+	<Star posX="10" posY="0" posZ="10"/>
+	<Star posX="7" posY="0" posZ="9"/>
+	<Star posX="2" posY="0" posZ="8"/>
+	<Star posX="6" posY="0" posZ="2"/>
+	<Star posX="5" posY="0" posZ="0"/>
+	<Star posX="0" posY="0" posZ="3"/>
+	<Star posX="3" posY="0" posZ="11"/>
+	<Star posX="7" posY="0" posZ="4"/>
+	<Star posX="1" posY="0" posZ="4"/>
+	<Star posX="0" posY="0" posZ="0"/>
+	<Star posX="10" posY="0" posZ="10"/>
+	<Star posX="7" posY="0" posZ="9"/>
+	<Star posX="2" posY="0" posZ="8"/>
+	<Star posX="6" posY="0" posZ="2"/>
+	<Star posX="5" posY="0" posZ="0"/>
+	<Star posX="0" posY="0" posZ="3"/>
+	<Star posX="3" posY="0" posZ="11"/>
+
+	<Earth posX="1" posY="1" posZ="4"/>
+	<Moon posX="0" posY="1" posZ="0"/>
+	<Mercury posX="10" posY="1" posZ="10"/>
+	<Mars posX="7" posY="1" posZ="9"/>
+	<Neptuno posX="2" posY="1" posZ="8"/>
+	<Jupiter posX="5" posY="1" posZ="0"/>
+	<Sun posX="0" posY="1" posZ="3"/>
+	<Venus posX="3" posY="1" posZ="11"/>
+
+
+
+
+</Level2>
