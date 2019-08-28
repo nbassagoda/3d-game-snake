@@ -1,5 +1,5 @@
 #include "../include/Shape.h"
 
-ShapeType Shape::get_Type() {
+shape_type Shape::get_Type() {
 	return type;
 }

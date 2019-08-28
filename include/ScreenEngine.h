@@ -2,31 +2,30 @@
 #include <SDL/SDL_image.h>
 #include "Menu.h"
 
-#ifndef MOTOR_PANTALLA_H
-#define MOTOR_PANTALLA_H
+#ifndef SCREEN_ENGINE_H
+#define SCREEN_ENGINE_H
 
-class Motor_Pantalla {
+class ScreenEngine {
 private:
 	GLuint screenLoose;
 	GLuint screenWin;
 	GLuint screenInit;
-	static Motor_Pantalla* instance;
-	Motor_Pantalla();
+	static ScreenEngine* instance;
+	ScreenEngine();
 	TTF_Font* fontMain;
 	TTF_Font* fontMenu;
-	unsigned int CargaTextoC(const char* file, SDL_Color a);
-	unsigned int CargaTextoG(const char* file, SDL_Color a);
-	void DrawPausa();
-	void DrawSTART();
-	void DrawHUD();
+	unsigned int LoadTextC(const char* file, SDL_Color a);
+	unsigned int LoadText2(const char* file, SDL_Color a);
+	void DrawPause();
+	void DrawStart();
+	void DrawHud();
 	void DrawPerder();
-	void DrawGanar();
-    unsigned int CargaTextura(const char* file);
+	void DrawWin();
+    unsigned int LoadTexture(const char* file);
 	
 public:
-	static unsigned int puto;
-	static Motor_Pantalla* GetInstance();
-	void DrawPantalla();
+	static ScreenEngine* GetInstance();
+	void DrawScreen();
 };
 
 #endif

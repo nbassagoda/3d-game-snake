@@ -5,7 +5,7 @@
 
 class ShapeSphere: public Shape {
 	private:
-		bool ColicionaSphere(ShapeSphere* f, obj_pos mia, obj_pos otro);
+		bool CollisionSphere(ShapeSphere* f, obj_pos mine, obj_pos other);
 
 	public:
 		ShapeSphere(float X, float Y, float Z, float R);
@@ -13,7 +13,7 @@ class ShapeSphere: public Shape {
 		float pos_y;
 		float posZ;
 		float radio;
-		bool Coliciona(Shape* f, obj_pos mine, obj_pos other);
+		bool Collision(Shape* f, obj_pos mine, obj_pos other);
 };
 
 #endif

@@ -68,13 +68,13 @@ enum in_col {BLANCO, ROJO, AZUL, VERDE};
 struct light_inf {
     bool activa;
     in_col Color;
-    in_pos Posicion;
+    in_pos position;
 };
 
-enum GameState {PAUSE, ACTIVE, WIN, LOOSE, START, QUIT};
-enum ShapeType {SPHERE};
-enum ObjectType {T_SOLID, T_CHAR, T_BACKGROUND};
-enum ObjectClass {C_APPLE, C_SNAKE};
+enum ObjectState {PAUSE, ACTIVE, WIN, LOOSE, START, QUIT};
+enum shape_type {SPHERE};
+enum object_type {T_SOLID, T_CHAR, T_BACKGROUND};
+enum object_class {C_APPLE, C_SNAKE};
 enum ModelType {MOD_SOLIDO, MOD_LINEAS, MOD_COLICION};
 
 float PointsDistance(float x1, float y1, float z1, float x2, float y2, float y3);

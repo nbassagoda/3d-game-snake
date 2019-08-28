@@ -14,8 +14,8 @@
 
 using namespace std;
 
-#ifndef CARGAROBJETO_H
-#define CARGAROBJETO_H
+#ifndef LOAD_OBJECT_H
+#define LOAD_OBJECT_H
 
 struct Cordenada {
 	float x, y, z;
@@ -33,13 +33,13 @@ struct Cara {
 	Cara(int f1, int f2, int f3, int f4, int t1, int t2, int t3, int t4, int n1, int n2, int n3, int n4);
 };
 
-class CargarObjeto {
+class LoadObject {
 	public:
-		CargarObjeto();
-		~CargarObjeto();
+		LoadObject();
+		~LoadObject();
 		static int CaragarWireframe(const char* filename);
 		static int CaragarSolid(const char* filename);
-		static int CaragarSolidTextura(const char* filename, GLuint textura);
+		static int LoadTextureSolid(const char* filename, GLuint textura);
 };
 
 #endif

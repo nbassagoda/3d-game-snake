@@ -29,7 +29,7 @@ if exist build/EventsEngine.o del build\EventsEngine.o
 if exist build/GraphicEngine.o del build\GraphicEngine.o
 if exist build/GameEngine.o del build\GameEngine.o
 if exist build/ScreenEngine.o del build\ScreenEngine.o
-if exist build/Objeto.o del build\Objeto.o
+if exist build/Object.o del build\Object.o
 if exist build/Snake.o del build\Snake.o
 if exist build/tinystr.o del build\tinystr.o
 if exist build/tinyxml.o del build\tinyxml.o
@@ -69,13 +69,13 @@ g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/GraphicEngine.cpp -o build/GraphicEngine.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/GameEngine.cpp -o build/GameEngine.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/ScreenEngine.cpp -o build/ScreenEngine.o
-g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/Objeto.cpp -o build/Objeto.o
+g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/Object.cpp -o build/Object.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/Snake.cpp -o build/Snake.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/tinystr.cpp -o build/tinystr.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/tinyxml.cpp -o build/tinyxml.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/tinyxmlerror.cpp -o build/tinyxmlerror.o
 g++ -Wextra -w -Wall -Ilib\SDL-1.2.15\include -Ilib\glut -Ilib\FreeImage -c src/tinyxmlparser.cpp -o build/tinyxmlparser.o
-g++ -Llib\SDL-1.2.15\lib -Llib\glut -Llib\FreeImage -o Snake.exe build/Apple.o build/Earth.o build/Moon.o build/Sun.o build/Mercury.o build/Neptuno.o  build/Venus.o  build/Mars.o build/Jupiter.o build/LoadObjects.o build/Definitions.o build/GameState.o build/Shape.o build/ShapeSphere.o build/main.o build/Menu.o build/EventsEngine.o build/GraphicEngine.o build/GameEngine.o build/ScreenEngine.o build/Objeto.o build/Snake.o build/tinystr.o build/tinyxml.o build/tinyxmlerror.o build/tinyxmlparser.o -lmingw32 -lSDLmain -lSDL -lopengl32 -lglu32 -lglut32 lib\SDL-1.2.15\lib\libSDLmain.a lib\SDL-1.2.15\lib\SDL_ttf.lib lib\SDL-1.2.15\lib\SDL_image.lib lib\SDL-1.2.15\lib\libSDL.dll.a lib\FreeImage\FreeImage.lib -mwindows
+g++ -Llib\SDL-1.2.15\lib -Llib\glut -Llib\FreeImage -o Snake.exe build/Apple.o build/Earth.o build/Moon.o build/Sun.o build/Mercury.o build/Neptuno.o  build/Venus.o  build/Mars.o build/Jupiter.o build/LoadObjects.o build/Definitions.o build/GameState.o build/Shape.o build/ShapeSphere.o build/main.o build/Menu.o build/EventsEngine.o build/GraphicEngine.o build/GameEngine.o build/ScreenEngine.o build/Object.o build/Snake.o build/tinystr.o build/tinyxml.o build/tinyxmlerror.o build/tinyxmlparser.o -lmingw32 -lSDLmain -lSDL -lopengl32 -lglu32 -lglut32 lib\SDL-1.2.15\lib\libSDLmain.a lib\SDL-1.2.15\lib\SDL_ttf.lib lib\SDL-1.2.15\lib\SDL_image.lib lib\SDL-1.2.15\lib\libSDL.dll.a lib\FreeImage\FreeImage.lib -mwindows
 @echo off
 echo.
 

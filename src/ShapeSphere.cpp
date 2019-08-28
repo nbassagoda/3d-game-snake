@@ -8,17 +8,17 @@ ShapeSphere::ShapeSphere(float X, float Y, float Z, float R) {
 	type = SPHERE;
 }
 
-bool ShapeSphere::Coliciona(Shape* F, obj_pos mine, obj_pos other) {
+bool ShapeSphere::Collision(Shape* F, obj_pos mine, obj_pos other) {
 	bool result = false;
 	switch(F->get_Type()) {
 		case SPHERE:
-			result = ColicionaSphere(dynamic_cast<ShapeSphere*>(F), mine, other);
+			result = CollisionSphere(dynamic_cast<ShapeSphere*>(F), mine, other);
 		break;
 	}
 	return result;
 }
 
-bool ShapeSphere::ColicionaSphere(ShapeSphere* F, obj_pos mine,obj_pos other) {
+bool ShapeSphere::CollisionSphere(ShapeSphere* F, obj_pos mine,obj_pos other) {
 	float R1;
 	float R2 = radio + F->radio;
 	float X = mine.pos_x - other.pos_x;

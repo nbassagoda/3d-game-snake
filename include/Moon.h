@@ -1,4 +1,4 @@
-#include "Objeto.h"
+#include "Object.h"
 
 #include <map>
 
@@ -7,7 +7,7 @@ using namespace std;
 #ifndef MOON_H
 #define MOON_H
 
-class Moon: public Objeto {
+class Moon: public Object {
   protected:
   	// Document.
     ofstream Document;

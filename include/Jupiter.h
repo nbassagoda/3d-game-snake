@@ -1,4 +1,4 @@
-#include "Objeto.h"
+#include "Object.h"
 
 #include <map>
 
@@ -7,7 +7,7 @@ using namespace std;
 #ifndef JUPITER_H
 #define JUPITER_H
 
-class Jupiter: public Objeto {
+class Jupiter: public Object {
   protected:
   
   public:

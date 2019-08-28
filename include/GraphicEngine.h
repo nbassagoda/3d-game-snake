@@ -47,29 +47,29 @@ class GraphicEngine {
     int clear_color = 0;
     
     /// Cam Information.
-    data_camera Camera;
+    data_camera camera;
     
     static GraphicEngine* instance;
     GraphicEngine();
-    void CargaAmbiente();
-    void CargaModelos();
-    void CargaTextura(GLuint &texture, const char* texture_name);
-    void DrawLuz();
-    void DrawCamara();
-    void DrawEsenario();
-    void DrawPersonajes();
+    void LoadEnv();
+    void LoadModels();
+    void LoadTexture(GLuint &texture, const char* texture_name);
+    void DrawLight();
+    void Drawcamera();
+    void DrawScene();
+    void DrawCharacters();
     void DrawContexto();
-    void DrawAmbiente();
+    void DrawEnv();
     ~GraphicEngine();
 
   public:
     static GraphicEngine* GetInstance();
     void Draw();
     void ruedita(bool);
-    void CambiarModo();
-    void CambiarCamara();
-    void ActivarDesctivarTextura();
-    void ActivarDesactivarLuz();
+    void ChangeMode();
+    void Changecamera();
+    void ManageTexture();
+    void ManageLight();
     void MotionCamara(int,int);
 };
 

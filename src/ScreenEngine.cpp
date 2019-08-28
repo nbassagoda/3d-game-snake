@@ -1,8 +1,8 @@
 #include "../include/ScreenEngine.h"
 
-Motor_Pantalla* Motor_Pantalla::instance = NULL;
+ScreenEngine* ScreenEngine::instance = NULL;
 
-unsigned int Motor_Pantalla::CargaTextura(const char* file) {
+unsigned int ScreenEngine::LoadTexture(const char* file) {
 	SDL_Surface* img = IMG_Load(file);
 	GLint CantColors;
 	GLenum formato;
@@ -19,25 +19,25 @@ unsigned int Motor_Pantalla::CargaTextura(const char* file) {
 }
 
 
-Motor_Pantalla::Motor_Pantalla() {
+ScreenEngine::ScreenEngine() {
 	fontMain = TTF_OpenFont("data/Fonts/ITCKRIST.TTF", 128);
 	fontMenu = TTF_OpenFont("data/Fonts/Latin Modern Roman.otf", 128);
-	screenLoose = CargaTextura("data/Textures/Game_Over.jpg");
-	screenInit = CargaTextura("data/Textures/Game_Start.jpg");
-	screenWin = CargaTextura("data/Textures/Game_Win.jpg");
+	screenLoose = LoadTexture("data/Textures/Game_Over.jpg");
+	screenInit = LoadTexture("data/Textures/Game_Start.jpg");
+	screenWin = LoadTexture("data/Textures/Game_Win.jpg");
 }
 
-Motor_Pantalla* Motor_Pantalla::GetInstance() {
-	if(instance == NULL) instance = new Motor_Pantalla();
+ScreenEngine* ScreenEngine::GetInstance() {
+	if(instance == NULL) instance = new ScreenEngine();
 	return instance;
 }
 
-void Motor_Pantalla::DrawHUD() {
+void ScreenEngine::DrawHud() {
 	SDL_Color a = {255, 255, 255};
 	char Mensage[500];
 	sprintf(Mensage, "Score: ");
 	glEnable(GL_TEXTURE);
-	unsigned int texto = CargaTextoG(Mensage, a);
+	unsigned int texto = LoadText2(Mensage, a);
 	
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -56,9 +56,9 @@ void Motor_Pantalla::DrawHUD() {
 	glEnd();
 	//glPolygonMode(GL_FRONT,GL_FILL);
 	glDeleteTextures(1,&texto);
-	sprintf(Mensage, " %d ",EstadoJuego::GetInstance()->score);
+	sprintf(Mensage, " %d ",GameState::GetInstance()->score);
 
-	texto = CargaTextoG(Mensage, a);
+	texto = LoadText2(Mensage, a);
 
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -79,7 +79,7 @@ void Motor_Pantalla::DrawHUD() {
 	glDeleteTextures(1, &texto);
 }
 
-void Motor_Pantalla::DrawPausa() {
+void ScreenEngine::DrawPause() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.7);
 	glBegin(GL_QUADS);
@@ -102,7 +102,7 @@ void Motor_Pantalla::DrawPausa() {
 	
 	// Pause configurations.
 	sprintf(Mensage, "Pause");
-	unsigned int texto = CargaTextoG(Mensage, a);
+	unsigned int texto = LoadText2(Mensage, a);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -129,39 +129,39 @@ void Motor_Pantalla::DrawPausa() {
 	SDL_Color T2 = {200,0,0};
 	int PosI = 100;
 	int Tam  = 40;
-	switch (Menu::GetInstance()->getOpcion()) {
-		case O_SolWir:
+	switch (Menu::GetInstance()->getOption()) {
+		case O_SUN:
 			TI = {150,150,100};
 		break;
-		case O_Textura:
+		case O_TEXTURE:
 			TEX = {150,150,100};
 		break;
-		case O_Inter:
+		case O_INTER:
 			INTE = {150,150,100} ;
 		break;
-		case O_LuzAct:
+		case O_LIGHT:
 			LA = {150,150,100};
 		break;
-		case O_LuZDir:
+		case O_LIGHT_DIR:
 			LD = {150,150,100};
 		break;
-		case O_LuzColor:
+		case O_LIGHT_COLOR:
 			LC = {150,150,100};
 		break;
-		case O_Imortal:
+		case O_TRICK:
 			INM = {150,150,100};
 		break;
-		case O_Cama:
+		case O_CAMERA:
 			CAM = {150,150,100};
 		break;
-		case O_FBM:
+		case O_TRICK_2:
 			T2 = {150,150,100};
 		break;
 	}
 	
-	// Camera configurations.
-	sprintf(Mensage, "Camera");
-	texto = CargaTextoC(Mensage, CAM);
+	// camera configurations.
+	sprintf(Mensage, "camera");
+	texto = LoadTextC(Mensage, CAM);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -177,7 +177,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1, &texto);
-	switch(EstadoJuego::GetInstance()->Camera) {
+	switch(GameState::GetInstance()->camera) {
 		case CAMARA_FIJA:
 			sprintf(Mensage, "< Fixed >");
 		break;
@@ -191,7 +191,7 @@ void Motor_Pantalla::DrawPausa() {
 			sprintf(Mensage, "< 1st Person >");
 		break;
 	}
-	texto = CargaTextoC(Mensage ,CAM);
+	texto = LoadTextC(Mensage ,CAM);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -211,7 +211,7 @@ void Motor_Pantalla::DrawPausa() {
 
 	// Image configurations.
 	sprintf(Mensage, "Image");
-	texto = CargaTextoC(Mensage, TI);
+	texto = LoadTextC(Mensage, TI);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -228,7 +228,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1,&texto);
-	switch(EstadoJuego::GetInstance()->modelado) {
+	switch(GameState::GetInstance()->model) {
 		case MOD_COLICION:
 			sprintf(Mensage, "< Collision >");
 		break;
@@ -240,7 +240,7 @@ void Motor_Pantalla::DrawPausa() {
 		break;
 	}
 	
-	texto = CargaTextoC(Mensage, TI);
+	texto = LoadTextC(Mensage, TI);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -260,7 +260,7 @@ void Motor_Pantalla::DrawPausa() {
 
 	// Texture configurations.
 	sprintf(Mensage, "Texture");
-	texto = CargaTextoC(Mensage, TEX);
+	texto = LoadTextC(Mensage, TEX);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -277,10 +277,10 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::GetInstance()->Texturas) sprintf(Mensage, "< Activated >");
+	if(GameState::GetInstance()->Textures) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 	
-	texto = CargaTextoC(Mensage, TEX);
+	texto = LoadTextC(Mensage, TEX);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -300,7 +300,7 @@ void Motor_Pantalla::DrawPausa() {
 	
 	// Difucion configurations.
 	sprintf(Mensage, "Broadcast");
-	texto = CargaTextoC(Mensage, INTE);
+	texto = LoadTextC(Mensage, INTE);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -317,10 +317,10 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::GetInstance()->interpolate) sprintf(Mensage, "< Activated >");
+	if(GameState::GetInstance()->interpolate) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 
-	texto = CargaTextoC(Mensage, INTE);
+	texto = LoadTextC(Mensage, INTE);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -340,7 +340,7 @@ void Motor_Pantalla::DrawPausa() {
 
 	// Light configurations.
 	sprintf(Mensage, "Light");
-	texto = CargaTextoC(Mensage, LA);
+	texto = LoadTextC(Mensage, LA);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -357,11 +357,11 @@ void Motor_Pantalla::DrawPausa() {
 	glEnd();
 	glDeleteTextures(1, &texto);
 	
-	if(EstadoJuego::GetInstance()->luz.activa) sprintf(Mensage, "< Activated >");
+	if(GameState::GetInstance()->light.activa) sprintf(Mensage, "< Activated >");
 	else sprintf(Mensage, "< Deactivated >");
 
 
-	texto = CargaTextoC(Mensage,LA);
+	texto = LoadTextC(Mensage,LA);
 	glBindTexture(GL_TEXTURE_2D,texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -381,7 +381,7 @@ void Motor_Pantalla::DrawPausa() {
 	
 	// Light direction.
 	sprintf(Mensage, "Light Direction");
-	texto = CargaTextoC(Mensage,LD);
+	texto = LoadTextC(Mensage,LD);
 	glBindTexture(GL_TEXTURE_2D,texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -397,7 +397,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1,&texto);
-	switch (EstadoJuego::GetInstance()->luz.Posicion) {
+	switch (GameState::GetInstance()->light.position) {
 		case L_Arriba:
 			sprintf(Mensage, "< Up >");
 		break;
@@ -414,7 +414,7 @@ void Motor_Pantalla::DrawPausa() {
 			sprintf(Mensage, "< Right >");
 		break;
 	}
-	texto = CargaTextoC(Mensage,LD);
+	texto = LoadTextC(Mensage,LD);
 	glBindTexture(GL_TEXTURE_2D,texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -434,7 +434,7 @@ void Motor_Pantalla::DrawPausa() {
 	
 	// Light color.
 	sprintf(Mensage, "Light Color");
-	texto = CargaTextoC(Mensage, LC);
+	texto = LoadTextC(Mensage, LC);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -450,7 +450,7 @@ void Motor_Pantalla::DrawPausa() {
 		glVertex3f(180,(PosI+Tam),0.1);
 	glEnd();
 	glDeleteTextures(1, &texto);
-	switch (EstadoJuego::GetInstance()->luz.Color) {
+	switch (GameState::GetInstance()->light.Color) {
 		case BLANCO:
 			sprintf(Mensage, "< White >");
 		break;
@@ -464,7 +464,7 @@ void Motor_Pantalla::DrawPausa() {
 			sprintf(Mensage, "< Green >");
 		break;
 	}
-	texto = CargaTextoC(Mensage, LC);
+	texto = LoadTextC(Mensage, LC);
 	glBindTexture(GL_TEXTURE_2D, texto);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -483,7 +483,7 @@ void Motor_Pantalla::DrawPausa() {
 	PosI += Tam;
 }
 
-void Motor_Pantalla::DrawPerder() {
+void ScreenEngine::DrawPerder() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -511,7 +511,7 @@ void Motor_Pantalla::DrawPerder() {
 	glEnd();
 }
 
-void Motor_Pantalla::DrawGanar() {
+void ScreenEngine::DrawWin() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -540,7 +540,7 @@ void Motor_Pantalla::DrawGanar() {
     glEnd();
 }
 
-GLuint Motor_Pantalla::CargaTextoG(const char* file,SDL_Color a) {
+GLuint ScreenEngine::LoadText2(const char* file,SDL_Color a) {
 	GLuint id;
 	
 	SDL_Surface* texto = TTF_RenderText_Blended(fontMain,file,a);
@@ -559,7 +559,7 @@ GLuint Motor_Pantalla::CargaTextoG(const char* file,SDL_Color a) {
 	return id;
 }
 
-GLuint Motor_Pantalla::CargaTextoC(const char* file, SDL_Color a) {
+GLuint ScreenEngine::LoadTextC(const char* file, SDL_Color a) {
 	GLuint id;
 	
 	SDL_Surface* texto = TTF_RenderText_Blended(fontMenu, file, a);
@@ -577,7 +577,7 @@ GLuint Motor_Pantalla::CargaTextoC(const char* file, SDL_Color a) {
 	return id;
 }
 
-void Motor_Pantalla::DrawSTART() {
+void ScreenEngine::DrawStart() {
 	glDisable(GL_TEXTURE);
 	glColor4f(0,0,0,0.5);
 	glBegin(GL_QUADS);
@@ -605,7 +605,7 @@ void Motor_Pantalla::DrawSTART() {
     glEnd();
 }
 
-void Motor_Pantalla::DrawPantalla() {
+void ScreenEngine::DrawScreen() {
 	glDisable(GL_LIGHTING);
 	glDisable(GL_DEPTH_TEST);
 	// glClear(GL_COLOR_BUFFER_BIT);
@@ -624,22 +624,22 @@ void Motor_Pantalla::DrawPantalla() {
 	glMatrixMode(GL_MODELVIEW);             // Set the matrix mode to modelview
 	glLoadIdentity();
 
-	if(EstadoJuego::GetInstance()->estdo != START) DrawHUD();
-	switch(EstadoJuego::GetInstance()->estdo) {
+	if(GameState::GetInstance()->estdo != START) DrawHud();
+	switch(GameState::GetInstance()->estdo) {
 		case LOOSE:
 			DrawPerder();
 		break;
 		case PAUSE:
-			DrawPausa();
+			DrawPause();
 		break;
 		case START:
-			DrawSTART();
+			DrawStart();
 		break;
 		case WIN:
-			DrawGanar();
+			DrawWin();
 		break;
 	}
-	// if(EstadoJuego::GetInstance()->estdo != START) DrawHUD();
+	// if(GameState::GetInstance()->estdo != START) DrawHud();
 
 	glPopMatrix();
 	glDisable(GL_BLEND);

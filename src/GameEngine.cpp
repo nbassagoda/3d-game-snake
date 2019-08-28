@@ -10,37 +10,37 @@ GameEngine* GameEngine::GetInstance() {
 
 GameEngine::GameEngine() {
 	Document.open(GAME_ENGINE_DOCUMENT_PATH);
-	estados = EstadoJuego::GetInstance();
-	elementos = new map<int, Objeto*>();
-	ambiente = new map<int, Objeto*>();
+	states = GameState::GetInstance();
+	elements = new map<int, Object*>();
+	env = new map<int, Object*>();
 	int apple_identification = 2;
 	character = NULL;
-	Now = NULL;
+	now = NULL;
 	Document << "[YES] [Game Engine successfully started] " << endl;
 }
 
 void GameEngine::CheckCollisions() {
-	character->VaciarColiciones();
-	map<int,Objeto*>::iterator it;
+	character->EmptyCollisions();
+	map<int,Object*>::iterator it;
 
-			if(character->Colicion(Now)) {
+			if(character->Colicion(now)) {
 				character->CollisionAction();
 				apple_identification++;
-				map<int, Objeto*>::iterator it;
-				for (it = elementos->begin(); it != elementos->end(); ++it){
+				map<int, Object*>::iterator it;
+				for (it = elements->begin(); it != elements->end(); ++it){
 					if (it->first == apple_identification)
-						Now = it->second;
+						now = it->second;
 	}
 			}
 
-	for(it = elementos->begin(); it != elementos->end(); ++it) {
+	for(it = elements->begin(); it != elements->end(); ++it) {
 		it->second->CollisionAction();
 	}
 }
 
 void GameEngine::TimeEvolution(float t) {
 	list<to_play>::const_iterator itAc;
-	for (itAc = estados->actions_list->begin(); itAc != estados->actions_list->end(); ++itAc) {
+	for (itAc = states->actions_list->begin(); itAc != states->actions_list->end(); ++itAc) {
 		to_play a = *itAc;
 		switch(a) {
 			case TO_LOSE:
@@ -50,19 +50,19 @@ void GameEngine::TimeEvolution(float t) {
 				YouWon();
 			break;
 			case TO_BONUS_POINT:
-				EstadoJuego* Estado = EstadoJuego::GetInstance();
-				Estado->score += 5;
-				if ((Estado->score == 50) && (Estado->level == 0)) {
-					Estado->level++;
-					IniciarPorDefecto();
-				} else if ((Estado->score == 50) && (Estado->level == 1)) YouWon();
+				GameState* State = GameState::GetInstance();
+				State->score += 5;
+				if ((State->score == 50) && (State->level == 0)) {
+					State->level++;
+					DefaultStart();
+				} else if ((State->score == 50) && (State->level == 1)) YouWon();
 			break;
 		}
 	}
-	estados->EmptyActionsList();
-	if(estados->estdo == ACTIVE) { 
-		character->TimeEvolution(t*estados->speed);
-		if(Now != NULL) Now->TimeEvolution(t*estados->speed);
+	states->EmptyActionsList();
+	if(states->estdo == ACTIVE) { 
+		character->TimeEvolution(t*states->speed);
+		if(now != NULL) now->TimeEvolution(t*states->speed);
 		CheckCollisions();
 	}
 }
@@ -70,39 +70,39 @@ void GameEngine::TimeEvolution(float t) {
 void GameEngine::RestoreGame() {
 	if (character != NULL) delete(character);
 	character = new Snake(0,0,0,0,0,0);
-	estados->score = 0;
-	estados->estdo = ACTIVE;
+	states->score = 0;
+	states->estdo = ACTIVE;
 
-	map<int, Objeto*>::iterator it;
-	for (it = elementos->begin(); it != elementos->end(); ++it) {
+	map<int, Object*>::iterator it;
+	for (it = elements->begin(); it != elements->end(); ++it) {
 		if (it->first == apple_identification)
-			Now = it->second;
+			now = it->second;
 	}
 }
-void GameEngine::IniciarPorDefecto() {
-  map<int, Objeto*>::iterator it;
-  Document << "[IniciarPorDefecto] [Memory erase started] " << endl;
-  for (it = elementos->begin(); it != elementos->end(); ++it) delete(it->second);
-  elementos->clear();
-  Document << "[IniciarPorDefecto] [Memory erase finished] " << endl;
-  Document << "[IniciarPorDefecto] [New creation started] " << endl;
+void GameEngine::DefaultStart() {
+  map<int, Object*>::iterator it;
+  Document << "[Default Initiation] [Memory erase started] " << endl;
+  for (it = elements->begin(); it != elements->end(); ++it) delete(it->second);
+  elements->clear();
+  Document << "[Default Initiation] [Memory erase finished] " << endl;
+  Document << "[Default Initiation] [New creation started] " << endl;
   
   TiXmlDocument document;
-  if(EstadoJuego::GetInstance()->level) {
+  if(GameState::GetInstance()->level) {
     if(!document.LoadFile("data/Level2.xml")) {
-      Document << "[IniciarPorDefecto] [Level 2 could not be loaded] " << endl;
+      Document << "[Default Initiation] [Level 2 could not be loaded] " << endl;
       exit(1);
     }
   } else {
     if(!document.LoadFile("data/Level1.xml")) {
-      Document << "[IniciarPorDefecto] [Level 1 could not be loaded] " << endl;
+      Document << "[Default Initiation] [Level 1 could not be loaded] " << endl;
       exit(1);
     }
   }
 
   TiXmlElement* raiz = document.FirstChildElement();
   if(raiz == NULL) {
-    Document << "[IniciarPorDefecto] [Failed to load file: No root element] " << endl;
+    Document << "[Default Initiation] [Failed to load file: No root element] " << endl;
     document.Clear();
     exit(1);
   }
@@ -111,15 +111,15 @@ void GameEngine::IniciarPorDefecto() {
   int id = 0;
     for(TiXmlElement* elem = raiz->FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
 
-    Objeto* Obj;
-    string elemName = elem->Value();
-    if ( (elemName == "Apple") || (elemName == "Star") ){
+    Object* Obj;
+    string elem_name = elem->Value();
+    if ( (elem_name == "Apple") || (elem_name == "Star") ){
       float pos_x = atof(elem->Attribute("pos_x"));
       float pos_y = atof(elem->Attribute("pos_y"));
       float posZ = atof(elem->Attribute("posZ"));
       Obj = new Apple(pos_x, pos_y, posZ, 0, 0, 0);
-      //elementos->insert(pair<int, Objeto*>(Obj->getId(), Obj));
-      elementos->insert(pair<int, Objeto*>(identification, Obj));
+      //elements->insert(pair<int, Object*>(Obj->GetId(), Obj));
+      elements->insert(pair<int, Object*>(identification, Obj));
       identification++;
     }
     else {
@@ -128,54 +128,51 @@ void GameEngine::IniciarPorDefecto() {
       float pos_y = atof(elem->Attribute("pos_y"));
       float posZ = atof(elem->Attribute("posZ"));
 
-      if (elemName == "Earth") {
-      	Document << "[IniciarPorDefecto] [entre] " << endl;
+      if (elem_name == "Earth") {
         Obj = new Earth(pos_x, pos_y, posZ, 0, 0, 0);
-      	Document << "[IniciarPorDefecto] [sali] " << endl;
       } 
-      else if (elemName == "Moon"){
-      	Document << "[IniciarPorDefecto] [entre] " << endl;
+      else if (elem_name == "Moon"){
          Obj = new Moon(pos_x, pos_y, posZ, 0, 0, 0);
       }
-      else if (elemName == "Sun") 
+      else if (elem_name == "Sun") 
          Obj = new Sun(pos_x, pos_y, posZ, 0, 0, 0);
-      else if (elemName == "Mercury") 
+      else if (elem_name == "Mercury") 
          Obj = new Mercury(pos_x, pos_y, posZ, 0, 0, 0);
-      else if (elemName == "Venus") 
+      else if (elem_name == "Venus") 
          Obj = new Mercury(pos_x, pos_y, posZ, 0, 0, 0);
-      else if (elemName == "Jupiter") 
+      else if (elem_name == "Jupiter") 
          Obj = new Jupiter(pos_x, pos_y, posZ, 0, 0, 0);
-      else if (elemName == "Mars") 
+      else if (elem_name == "Mars") 
         Obj = new Mars(pos_x, pos_y, posZ, 0, 0, 0);
-      else if (elemName == "Neptuno") 
+      else if (elem_name == "Neptuno") 
         Obj = new Neptuno(pos_x, pos_y, posZ, 0, 0, 0);
     }
 
 
-      //elementos->insert(pair<int, Objeto*>(Obj->getId(), Obj));
-      ambiente->insert(pair<int, Objeto*>(id, Obj));
+      //elements->insert(pair<int, Object*>(Obj->GetId(), Obj));
+      env->insert(pair<int, Object*>(id, Obj));
       id++;
     
 
   }
   RestoreGame();
-  Document << "[IniciarPorDefecto] [New creation finished] " << endl;
+  Document << "[Default Initiation] [New creation finished] " << endl;
 }
 
-GameState GameEngine::GetState() {
-	return estados->estdo;
+ObjectState GameEngine::GetState() {
+	return states->estdo;
 }
 
-map<int,Objeto*>* GameEngine::GetEnv() {
-	return ambiente;
+map<int,Object*>* GameEngine::GetEnv() {
+	return env;
 }
 
-map<int,Objeto*>* GameEngine::GetElements() {
-	return elementos;
+map<int,Object*>* GameEngine::GetElements() {
+	return elements;
 }
 
-Objeto* GameEngine::GetElement() {
-	return Now;
+Object* GameEngine::GetElement() {
+	return now;
 }
 
 Snake* GameEngine::GetCharacter() {
@@ -183,74 +180,74 @@ Snake* GameEngine::GetCharacter() {
 }
 
 void GameEngine::StartGame(string s) {
-	if (estados->estdo == START) {
-		IniciarPorDefecto();
+	if (states->estdo == START) {
+		DefaultStart();
 		Document << "[StartGame] [Default game started] " << endl;
 	} else
 		Document << "[StartGame] [Default game could not be started] " << endl;
 }
 
 void GameEngine::Accelerate() {
-	if ((estados->speed < 10)&(estados->estdo == ACTIVE)) {
-		estados->speed += 0.01;
+	if ((states->speed < 10)&(states->estdo == ACTIVE)) {
+		states->speed += 0.05;
 		Document << "[Accelerate] [Game speed increased] " << endl;
 	}
 }
 
 void GameEngine::DefaultSpeed() {
-	estados->speed = 1;
+	states->speed = 1;
 	Document << "[DefaultSpeed] [Default game speed] " << endl;
 }
 
 void GameEngine::SlowDown() {
-	if ((estados->speed > 0) & (estados->estdo == ACTIVE)) {
-		estados->speed -= 0.01;
+	if ((states->speed > 0) & (states->estdo == ACTIVE)) {
+		states->speed -= 0.01;
 		Document << "[SlowDown] [Game speed decreased] " << endl;
 	} else {
-		estados->speed = 0;
+		states->speed = 0;
 		Document << "[SlowDown] [Game speed decreased] " << endl;
 	}
 }
 
 void GameEngine::Substract() {
-	if(estados->estdo != START) {
-		EstadoJuego::GetInstance()->level = 0;
-		IniciarPorDefecto();
+	if(states->estdo != START) {
+		GameState::GetInstance()->level = 0;
+		DefaultStart();
 		Document << "[Substract] [Game restarted] " << endl;
 	}
 }
 
 void GameEngine::Pause() {
-	switch (estados->estdo) {
+	switch (states->estdo) {
 		case PAUSE:
-			estados->estdo = ACTIVE;
+			states->estdo = ACTIVE;
 			Document << "[Pause] [Game resumed] " << endl;
 		break;
 		case ACTIVE:
-			estados->estdo = PAUSE;
+			states->estdo = PAUSE;
 			Document << "[Pause] [Game paused] " << endl;
 		break;
 	}
 }
 
 void GameEngine::YouLoose() {
-	if(!estados->TestMode) {
-		estados->estdo = LOOSE;
+	if(!states->TestMode) {
+		states->estdo = LOOSE;
 		Document << "[YouLoose] [Game over] " << endl;
 	}
 }
 
 void GameEngine::Quit() {
-	estados->estdo = QUIT;
+	states->estdo = QUIT;
 	Document << "[Quit] [Game closed] " << endl;
 }
 
 void GameEngine::TrialMode() {
-	estados->TestMode = !estados->TestMode;
+	states->TestMode = !states->TestMode;
 	Document << "[TrialMode] [Game test] " << endl;
 }
 
 void GameEngine::YouWon() {
-	estados->estdo = WIN;
+	states->estdo = WIN;
 	Document << "[YouWon] [Game finished] " << endl;
 }

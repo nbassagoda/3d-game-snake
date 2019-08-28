@@ -22,19 +22,19 @@ private:
 	ofstream Document;
 
 	//list<float*>* posicionesTub;
-	EstadoJuego* estados;
-	map<int, Objeto*>* elementos;
-	map<int, Objeto*>* ambiente;
+	GameState* states;
+	map<int, Object*>* elements;
+	map<int, Object*>* env;
 	Snake* character;
 	static GameEngine* instance;
 	GameEngine();
 	void CheckCollisions();
 	
 	//void VerColiciones();
-	void IniciarPorDefecto();
+	void DefaultStart();
 	void RestoreGame();
 	int apple_identification;
-	Objeto* Now;
+	Object* now;
 	
 public:
 	static GameEngine* GetInstance();
@@ -50,10 +50,10 @@ public:
 	void Substract();
 	void Quit();
 	void TrialMode();
-	GameState GetState();
-	map<int,Objeto*>* GetElements();
-	Objeto* GetElement();
-	map<int,Objeto*>* GetEnv();
+	ObjectState GetState();
+	map<int,Object*>* GetElements();
+	Object* GetElement();
+	map<int,Object*>* GetEnv();
 	Snake* GetCharacter();
 };
 

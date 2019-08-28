@@ -5,24 +5,24 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
-class EstadoJuego {
+class GameState {
 	private:
-		EstadoJuego();
-		static EstadoJuego* instance;
+		GameState();
+		static GameState* instance;
 		
 	public:
-		camera_type Camera;
+		camera_type camera;
 		bool interpolate;
 		list<to_play>* actions_list;
 		float speed;
 		bool TestMode;
-		bool Texturas;
+		bool Textures;
 		bool motion;
 		int score;
-		ModelType modelado;
-		light_inf luz;
-		GameState estdo;
-		static EstadoJuego* GetInstance();
+		ModelType model;
+		light_inf light;
+		ObjectState estdo;
+		static GameState* GetInstance();
 		void AddActionList(to_play);
 		void EmptyActionsList();
 		int level;

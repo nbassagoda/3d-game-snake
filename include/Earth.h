@@ -1,4 +1,4 @@
-#include "Objeto.h"
+#include "Object.h"
 
 #include <map>
 
@@ -7,7 +7,7 @@ using namespace std;
 #ifndef EARTH_H
 #define EARTH_H
 
-class Earth: public Objeto {
+class Earth: public Object {
   protected:
   // Document.
     ofstream Document;

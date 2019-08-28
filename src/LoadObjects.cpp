@@ -59,7 +59,7 @@ Cara::Cara(int a, int b, int c, int d, int t1, int t2, int t3, int t4, int n1, i
 	normal[3] = n4;
 }
 
-int CargarObjeto::CaragarWireframe(const char* filename) {
+int LoadObject::CaragarWireframe(const char* filename) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
 	std::vector<Cordenada*> punto;
@@ -134,7 +134,7 @@ int CargarObjeto::CaragarWireframe(const char* filename) {
 	return num;
 }
 
-int CargarObjeto::CaragarSolid(const char* filename) {
+int LoadObject::CaragarSolid(const char* filename) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
 	std::vector<Cordenada*> punto;
@@ -224,7 +224,7 @@ int CargarObjeto::CaragarSolid(const char* filename) {
 	return num;
 }
 
-int CargarObjeto::CaragarSolidTextura(const char* filename, GLuint imagen) {
+int LoadObject::LoadTextureSolid(const char* filename, GLuint imagen) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
 	std::vector<Cordenada*> punto;

@@ -1,4 +1,4 @@
-#include "Objeto.h"
+#include "Object.h"
 
 #include <map>
 
@@ -7,7 +7,7 @@ using namespace std;
 #ifndef APPLE_H
 #define APPLE_H
 
-class Apple: public Objeto {
+class Apple: public Object {
 	protected:
 		static list<Shape*>* ShapeApple;
 	

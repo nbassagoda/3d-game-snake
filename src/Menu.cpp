@@ -3,7 +3,7 @@
 Menu* Menu::instance = NULL;
 
  Menu::Menu() {
-	pocision = O_SolWir;
+	position = O_SUN;
 }
 
 Menu* Menu::GetInstance() {
@@ -11,262 +11,262 @@ Menu* Menu::GetInstance() {
 	return instance;
 }
 
-void Menu::AccionCambiarAbajo() {
-	if(EstadoJuego::GetInstance()->estdo == PAUSE)
-		switch(pocision) {
-			case O_Cama:
-				pocision = O_SolWir;
+void Menu::ChangeDown() {
+	if(GameState::GetInstance()->estdo == PAUSE)
+		switch(position) {
+			case O_CAMERA:
+				position = O_SUN;
 			break;
-			case O_SolWir:
-				pocision = O_Textura;
+			case O_SUN:
+				position = O_TEXTURE;
 			break;
-			case O_Textura:
-				pocision = O_Inter;
+			case O_TEXTURE:
+				position = O_INTER;
 			break;
-			case O_Inter:
-				pocision = O_LuzAct;
+			case O_INTER:
+				position = O_LIGHT;
 			break;
-			case O_LuzAct:
-				pocision = O_LuZDir;
+			case O_LIGHT:
+				position = O_LIGHT_DIR;
 			break;
-			case O_LuZDir:
-				pocision = O_LuzColor;
+			case O_LIGHT_DIR:
+				position = O_LIGHT_COLOR;
 			break;
-			case O_LuzColor:
-				pocision = O_Imortal;
+			case O_LIGHT_COLOR:
+				position = O_TRICK;
 			break;
-			case O_Imortal:
-				pocision = O_FBM;
+			case O_TRICK:
+				position = O_TRICK_2;
 			break;
-			case O_FBM:
-				pocision = O_Cama;
-			break;
-		}
-}
-
-void Menu::AccionCambiarAriba() {
-	if(EstadoJuego::GetInstance()->estdo == PAUSE)
-		switch(pocision) {
-			case O_Cama:
-				pocision = O_FBM;
-			break;
-			case O_SolWir:
-				pocision = O_Cama;
-			break;
-			case O_Textura:
-				pocision = O_SolWir;
-			break;
-			case O_Inter:
-				pocision = O_Textura;
-			break;
-			case O_LuzAct:
-				pocision = O_Inter;
-			break;
-			case O_LuZDir:
-				pocision = O_LuzAct;
-			break;
-			case O_LuzColor:
-				pocision = O_LuZDir;
-			break;
-			case O_Imortal:
-				pocision = O_LuzColor;
-			break;
-			case O_FBM:
-				pocision = O_Imortal;
+			case O_TRICK_2:
+				position = O_CAMERA;
 			break;
 		}
 }
 
-void Menu::AccionDirLuz(bool der) {
+void Menu::ChangeUp() {
+	if(GameState::GetInstance()->estdo == PAUSE)
+		switch(position) {
+			case O_CAMERA:
+				position = O_TRICK_2;
+			break;
+			case O_SUN:
+				position = O_CAMERA;
+			break;
+			case O_TEXTURE:
+				position = O_SUN;
+			break;
+			case O_INTER:
+				position = O_TEXTURE;
+			break;
+			case O_LIGHT:
+				position = O_INTER;
+			break;
+			case O_LIGHT_DIR:
+				position = O_LIGHT;
+			break;
+			case O_LIGHT_COLOR:
+				position = O_LIGHT_DIR;
+			break;
+			case O_TRICK:
+				position = O_LIGHT_COLOR;
+			break;
+			case O_TRICK_2:
+				position = O_TRICK;
+			break;
+		}
+}
+
+void Menu::LightDirection(bool der) {
 	if (der) {
-		switch (EstadoJuego::GetInstance()->luz.Posicion) {
+		switch (GameState::GetInstance()->light.position) {
 			case L_Arriba:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Atras;
+				GameState::GetInstance()->light.position = L_Atras;
 			break;
 			case L_Atras:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Adeante;
+				GameState::GetInstance()->light.position = L_Adeante;
 			break;
 			case L_Adeante:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Izq;
+				GameState::GetInstance()->light.position = L_Izq;
 			break;
 			case L_Izq:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Der;
+				GameState::GetInstance()->light.position = L_Der;
 			break;
 			case L_Der:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Arriba;
+				GameState::GetInstance()->light.position = L_Arriba;
 			break;
 		}
 	} else {
-		switch (EstadoJuego::GetInstance()->luz.Posicion) {
+		switch (GameState::GetInstance()->light.position) {
 			case L_Arriba:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Der;
+				GameState::GetInstance()->light.position = L_Der;
 			break;
 			case L_Atras:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Arriba;
+				GameState::GetInstance()->light.position = L_Arriba;
 			break;
 			case L_Adeante:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Atras;
+				GameState::GetInstance()->light.position = L_Atras;
 			break;
 			case L_Izq:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Adeante;
+				GameState::GetInstance()->light.position = L_Adeante;
 			break;
 			case L_Der:
-				EstadoJuego::GetInstance()->luz.Posicion = L_Izq;
+				GameState::GetInstance()->light.position = L_Izq;
 			break;
 		}
 	}
 }
 
-void Menu::AccionElegir(bool der) {
-	if (EstadoJuego::GetInstance()->estdo == PAUSE)
-		switch(pocision) {
-			case O_Cama:
-				AccionCamara(der);
+void Menu::ChooseAction(bool der) {
+	if (GameState::GetInstance()->estdo == PAUSE)
+		switch(position) {
+			case O_CAMERA:
+				cameraAction(der);
 			break;
-			case O_SolWir:
-				AccionSolWar(der);
+			case O_SUN:
+				SunAction(der);
 			break;
-			case O_Textura:
-				AccionText(der);
+			case O_TEXTURE:
+				TextAction(der);
 			break;
-			case O_Inter:
-				AccionInter(der);
+			case O_INTER:
+				InterAction(der);
 			break;
-			case O_LuzAct:
-				AccionALuz(der);
+			case O_LIGHT:
+				LightAction(der);
 			break;
-			case O_LuZDir:
-				AccionDirLuz(der);
+			case O_LIGHT_DIR:
+				LightDirection(der);
 			break;
-			case O_LuzColor:
-				AccionColLuz(der);
+			case O_LIGHT_COLOR:
+				LightColAction(der);
 			break;
-			case O_Imortal:
-				AccionTruco(der);
+			case O_TRICK:
+				TrickAction(der);
 			break;
-			case O_FBM:
-				AccionTruco2(der);
+			case O_TRICK_2:
+				TrickAction2(der);
 			break;
 		}
 }
 
-void Menu::AccionColLuz(bool der) {
+void Menu::LightColAction(bool der) {
 	if(der) {
-		switch (EstadoJuego::GetInstance()->luz.Color) {
+		switch (GameState::GetInstance()->light.Color) {
 			case(BLANCO):
-				EstadoJuego::GetInstance()->luz.Color = ROJO;
+				GameState::GetInstance()->light.Color = ROJO;
 			break;
 			case(ROJO):
-				EstadoJuego::GetInstance()->luz.Color = AZUL;
+				GameState::GetInstance()->light.Color = AZUL;
 			break;
 			case(AZUL):
-				EstadoJuego::GetInstance()->luz.Color = VERDE;
+				GameState::GetInstance()->light.Color = VERDE;
 			break;
 			case(VERDE):
-				EstadoJuego::GetInstance()->luz.Color = BLANCO;
+				GameState::GetInstance()->light.Color = BLANCO;
 			break;
         }
 	}
     else {
-		switch (EstadoJuego::GetInstance()->luz.Color) {
+		switch (GameState::GetInstance()->light.Color) {
 			case(BLANCO):
-				EstadoJuego::GetInstance()->luz.Color = VERDE;
+				GameState::GetInstance()->light.Color = VERDE;
 			break;
 			case(ROJO):
-				EstadoJuego::GetInstance()->luz.Color = BLANCO;
+				GameState::GetInstance()->light.Color = BLANCO;
 			break;
 			case(AZUL):
-				EstadoJuego::GetInstance()->luz.Color = ROJO;
+				GameState::GetInstance()->light.Color = ROJO;
 			break;
 			case(VERDE):
-				EstadoJuego::GetInstance()->luz.Color = AZUL;
+				GameState::GetInstance()->light.Color = AZUL;
 			break;
 		}
 	}
 }
 
-void Menu::AccionTruco(bool der) {
-	EstadoJuego::GetInstance()->TestMode = !EstadoJuego::GetInstance()->TestMode;
+void Menu::TrickAction(bool der) {
+	GameState::GetInstance()->TestMode = !GameState::GetInstance()->TestMode;
 }
 
-void Menu::AccionTruco2(bool der) {
-	EstadoJuego::GetInstance()->motion= !EstadoJuego::GetInstance()->motion;
+void Menu::TrickAction2(bool der) {
+	GameState::GetInstance()->motion= !GameState::GetInstance()->motion;
 }
 
-void Menu::AccionALuz(bool der) {
-	EstadoJuego::GetInstance()->luz.activa = !EstadoJuego::GetInstance()->luz.activa;
+void Menu::LightAction(bool der) {
+	GameState::GetInstance()->light.activa = !GameState::GetInstance()->light.activa;
 }
 
-void Menu::AccionText(bool der) {
-	EstadoJuego::GetInstance()->Texturas =! EstadoJuego::GetInstance()->Texturas;
+void Menu::TextAction(bool der) {
+	GameState::GetInstance()->Textures =! GameState::GetInstance()->Textures;
 }
 
-void Menu::AccionInter(bool der) {
-	EstadoJuego::GetInstance()->interpolate = ! EstadoJuego::GetInstance()->interpolate;
+void Menu::InterAction(bool der) {
+	GameState::GetInstance()->interpolate = ! GameState::GetInstance()->interpolate;
 }
 
-void Menu::AccionCamara(bool der) {
+void Menu::cameraAction(bool der) {
 	if (der) {
-		switch(EstadoJuego::GetInstance()->Camera) {
+		switch(GameState::GetInstance()->camera) {
 			case CAMARA_FIJA:
-				EstadoJuego::GetInstance()->Camera = MOUSE;
+				GameState::GetInstance()->camera = MOUSE;
 			break;
 			case MOUSE:
-				EstadoJuego::GetInstance()->Camera = FOLLOW;
+				GameState::GetInstance()->camera = FOLLOW;
 			break;
 			case FOLLOW:
-				EstadoJuego::GetInstance()->Camera = FIRST_PERSON;
+				GameState::GetInstance()->camera = FIRST_PERSON;
 			break;
 			case FIRST_PERSON:
-				EstadoJuego::GetInstance()->Camera = CAMARA_FIJA;
+				GameState::GetInstance()->camera = CAMARA_FIJA;
 			break;
 		}
     } else {
-		switch(EstadoJuego::GetInstance()->Camera) {
+		switch(GameState::GetInstance()->camera) {
 			case CAMARA_FIJA:
-				EstadoJuego::GetInstance()->Camera = FIRST_PERSON;
+				GameState::GetInstance()->camera = FIRST_PERSON;
 			break;
 			case MOUSE:
-				EstadoJuego::GetInstance()->Camera = CAMARA_FIJA;
+				GameState::GetInstance()->camera = CAMARA_FIJA;
 			break;
 			case FOLLOW:
-				EstadoJuego::GetInstance()->Camera = MOUSE;
+				GameState::GetInstance()->camera = MOUSE;
 			break;
 			case FIRST_PERSON:
-				EstadoJuego::GetInstance()->Camera = FOLLOW;
+				GameState::GetInstance()->camera = FOLLOW;
 			break;
 		}
 	}
 }
 
-void Menu::AccionSolWar(bool der) {
+void Menu::SunAction(bool der) {
 	if (der) {
-		switch(EstadoJuego::GetInstance()->modelado) {
+		switch(GameState::GetInstance()->model) {
 			case MOD_LINEAS:
-				EstadoJuego::GetInstance()->modelado = MOD_COLICION;
+				GameState::GetInstance()->model = MOD_COLICION;
 			break;
 			case MOD_COLICION:
-				EstadoJuego::GetInstance()->modelado = MOD_SOLIDO;
+				GameState::GetInstance()->model = MOD_SOLIDO;
 			break;
 			case MOD_SOLIDO:
-				EstadoJuego::GetInstance()->modelado = MOD_LINEAS;
+				GameState::GetInstance()->model = MOD_LINEAS;
 			break;
 		}
 	} else {
-		switch(EstadoJuego::GetInstance()->modelado) {
+		switch(GameState::GetInstance()->model) {
 			case MOD_LINEAS:
-				EstadoJuego::GetInstance()->modelado = MOD_SOLIDO;
+				GameState::GetInstance()->model = MOD_SOLIDO;
 			break;
 			case MOD_COLICION:
-				EstadoJuego::GetInstance()->modelado = MOD_LINEAS;
+				GameState::GetInstance()->model = MOD_LINEAS;
 			break;
 			case MOD_SOLIDO:
-				EstadoJuego::GetInstance()->modelado = MOD_COLICION;
+				GameState::GetInstance()->model = MOD_COLICION;
 			break;
 		}
 	}
 }
 
-Opcion Menu::getOpcion() {
-	return pocision;
+Option Menu::getOption() {
+	return position;
 }

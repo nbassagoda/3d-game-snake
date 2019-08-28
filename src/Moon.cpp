@@ -5,27 +5,27 @@ int Moon::model_t = 0;
 
 Moon::Moon(float x, float y, float z, float ang_x, float ang_y, float ang_z) {
     Document.open("data/Info/Events_Out.txt");
-    _posicion.pos_x = x;
-    _posicion.pos_y = y + 1;
-    _posicion.posZ = z;
-    _posicion.angle_x = ang_x;
-    _posicion.angle_y = ang_y;
-    _posicion.angle_z = ang_z;
-    _posicion.size = 0.5;
+    _position.pos_x = x;
+    _position.pos_y = y + 1;
+    _position.posZ = z;
+    _position.angle_x = ang_x;
+    _position.angle_y = ang_y;
+    _position.angle_z = ang_z;
+    _position.size = 0.5;
     id = 1;
 }
 
 void Moon::Draw(ModelType m, data_camera camara) {
     glPushMatrix();
-    float n = PointsDistance(_posicion.pos_x, _posicion.pos_y, _posicion.posZ, camara.pos_x, camara.pos_y, camara.posZ);
+    float n = PointsDistance(_position.pos_x, _position.pos_y, _position.posZ, camara.pos_x, camara.pos_y, camara.posZ);
     if (n < z_far) {
         glEnable(GL_BLEND);
         float d = PointsDistance(camara.direction_x, camara.direction_y, camara.direction_z, camara.pos_x, camara.pos_y, camara.posZ);
 
-        glTranslatef(_posicion.pos_x,_posicion.pos_y,_posicion.posZ);
-        glRotatef(_posicion.angle_y,0,1,0);
-        glScaled(_posicion.size,_posicion.size,_posicion.size);
-        if(EstadoJuego::GetInstance()->Texturas)
+        glTranslatef(_position.pos_x,_position.pos_y,_position.posZ);
+        glRotatef(_position.angle_y,0,1,0);
+        glScaled(_position.size,_position.size,_position.size);
+        if(GameState::GetInstance()->Textures)
             glEnable(GL_TEXTURE_2D);
             glColor3f(1,0,0);
         if(m != MOD_COLICION) {
@@ -35,12 +35,12 @@ void Moon::Draw(ModelType m, data_camera camara) {
     glDisable(GL_ALPHA);
     glPopMatrix();
 
-    Document << "[GraphicEngine]" << _posicion.pos_x <<  _posicion.pos_y <<  _posicion.posZ << endl;
+    Document << "[GraphicEngine]" << _position.pos_x <<  _position.pos_y <<  _position.posZ << endl;
 }
 
 void Moon::TimeEvolution(float t) {
-    _posicion.angle_y += 0.6;
-    if(_posicion.angle_y > 360) _posicion.angle_y -= 360;
+    _position.angle_y += 0.6;
+    if(_position.angle_y > 360) _position.angle_y -= 360;
 }
 
 Moon::~Moon() {

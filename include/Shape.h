@@ -5,11 +5,11 @@
 
 class Shape {
 	protected:
-		ShapeType type;
+		shape_type type;
 		
 	public:
-		virtual bool Coliciona(Shape* f, obj_pos mine, obj_pos other) = 0;
-		ShapeType get_Type();
+		virtual bool Collision(Shape* f, obj_pos mine, obj_pos other) = 0;
+		shape_type get_Type();
 };
 
 #endif

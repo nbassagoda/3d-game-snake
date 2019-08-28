@@ -14,7 +14,7 @@ EventsEngine::EventsEngine() {
 	hit_plus = false;
 	move = false;
 	rotate = false;
-	Document << "[EventsEngine] [Motor Eventos inicio correctamente]" << endl;
+	Document << "[EventsEngine] [Events Engine started correctly]" << endl;
 }
 
 void EventsEngine::PerformEvent(SDL_Event event) {
@@ -40,25 +40,25 @@ void EventsEngine::PerformEvent(SDL_Event event) {
 						GameEngine::GetInstance()->StartGame("Defecto");
 					break;
 					case SDLK_m:
-						GraphicEngine::GetInstance()->CambiarModo();
+						GraphicEngine::GetInstance()->ChangeMode();
 					break;
 					case SDLK_UP:
-						Menu::GetInstance()->AccionCambiarAriba();
+						Menu::GetInstance()->ChangeUp();
 					break;
 					case SDLK_DOWN:
-						Menu::GetInstance()->AccionCambiarAbajo();
+						Menu::GetInstance()->ChangeDown();
 					break;
 					case SDLK_v:
-						GraphicEngine::GetInstance()->CambiarCamara();
+						GraphicEngine::GetInstance()->Changecamera();
 					break;
 					case SDLK_f:
-						EstadoJuego::GetInstance()->interpolate = !EstadoJuego::GetInstance()->interpolate;
+						GameState::GetInstance()->interpolate = !GameState::GetInstance()->interpolate;
 					break;
 					case SDLK_t:
-						GraphicEngine::GetInstance()->ActivarDesctivarTextura();
+						GraphicEngine::GetInstance()->ManageTexture();
 					break;
 					case SDLK_l:
-						GraphicEngine::GetInstance()->ActivarDesactivarLuz();
+						GraphicEngine::GetInstance()->ManageLight();
 					break;
 					case SDLK_p:
 						GameEngine::GetInstance()->Pause();
@@ -76,12 +76,12 @@ void EventsEngine::PerformEvent(SDL_Event event) {
 						GameEngine::GetInstance()->StartGame("Defecto");
 					break;
 					case SDLK_RIGHT:
-						Menu::GetInstance()->AccionElegir(true);
+						Menu::GetInstance()->ChooseAction(true);
 						rotate = true;
 						rotate_direction = false;
 					break;
 					case SDLK_LEFT:
-						Menu::GetInstance()->AccionElegir(false);
+						Menu::GetInstance()->ChooseAction(false);
 						rotate = true;
 						rotate_direction = true;
 					break;
@@ -140,7 +140,7 @@ void EventsEngine::PerformEvent(SDL_Event event) {
 void EventsEngine::ChangeState(float time) {
 	GameEngine::GetInstance()->TimeEvolution(time);
 	if (hit_plus) GameEngine::GetInstance()->Accelerate();
-	if(hit_min) GameEngine::GetInstance()->SlowDown();
+	if (hit_min) GameEngine::GetInstance()->SlowDown();
 }
 
 bool EventsEngine::Rotate() {

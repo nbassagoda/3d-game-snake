@@ -1,32 +1,32 @@
 #include "../include/GameState.h"
 
-EstadoJuego* EstadoJuego::instance = NULL;
+GameState* GameState::instance = NULL;
 
-EstadoJuego* EstadoJuego::GetInstance() {
-	if(instance == NULL) instance = new EstadoJuego();
+GameState* GameState::GetInstance() {
+	if(instance == NULL) instance = new GameState();
 	return instance;
 }
 
-EstadoJuego::EstadoJuego() {
+GameState::GameState() {
 	actions_list = new list<to_play>;
 	speed = 1;
-	modelado = MOD_SOLIDO;
-	Camera = CAMARA_FIJA;
+	model = MOD_SOLIDO;
+	camera = CAMARA_FIJA;
 	interpolate = true;
 	estdo = START;
 	score = 0;
 	TestMode = false;
-	luz.activa = true;
-	luz.Posicion = L_Arriba;
-	luz.Color = BLANCO;
+	light.activa = true;
+	light.position = L_Arriba;
+	light.Color = BLANCO;
 	motion = false;
 	level = 0;
 }
 
-void EstadoJuego::AddActionList(to_play a) {
+void GameState::AddActionList(to_play a) {
 	actions_list->push_back(a);
 }
 
-void EstadoJuego::EmptyActionsList() {
+void GameState::EmptyActionsList() {
 	actions_list->clear();
 }
