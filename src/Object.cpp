@@ -34,9 +34,6 @@ void Object::AddCollision(int id,object_class tipo) {
 }
 
 void Object::EmptyCollisions() {
-	// map<int,ModelType>::iterator it;
-	// for (it = elements->begin();it != elements->end(); ++it)
-	//delete(it->second);
 	_collisions->clear();
 	delete(_collisions);
 	_collisions = new map<int,object_class>();

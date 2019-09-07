@@ -2,13 +2,13 @@
 
 const char* LOAD_DOCUMENT_PATH = "data/Info/Load_Object.txt";
 
-Cordenada::Cordenada(float a, float b, float c) {
+Coordenate::Coordenate(float a, float b, float c) {
 	x = a;
 	y = b;
 	z = c;
 }
 
-Cara::Cara(int a, int b, int c, int n1, int n2, int n3) {
+Side::Side(int a, int b, int c, int n1, int n2, int n3) {
 	Cuadrado = false;
 	vertice[0] = a;
 	vertice[1] = b;
@@ -18,7 +18,7 @@ Cara::Cara(int a, int b, int c, int n1, int n2, int n3) {
 	normal[2] = n3;
 }
 
-Cara::Cara(int a, int b, int c, int d, int n1, int n2, int n3, int n4) {
+Side::Side(int a, int b, int c, int d, int n1, int n2, int n3, int n4) {
 	Cuadrado = true;
 	vertice[0] = a;
 	vertice[1] = b;
@@ -30,7 +30,7 @@ Cara::Cara(int a, int b, int c, int d, int n1, int n2, int n3, int n4) {
 	normal[3] = n4;
 }
 
-Cara::Cara(int a, int b, int c, int t1, int t2, int t3, int n1, int n2, int n3) {
+Side::Side(int a, int b, int c, int t1, int t2, int t3, int n1, int n2, int n3) {
 	Cuadrado = false;
 	vertice[0] = a;
 	vertice[1] = b;
@@ -43,7 +43,7 @@ Cara::Cara(int a, int b, int c, int t1, int t2, int t3, int n1, int n2, int n3) 
 	normal[2] = n3;
 }
 
-Cara::Cara(int a, int b, int c, int d, int t1, int t2, int t3, int t4, int n1, int n2, int n3, int n4) {
+Side::Side(int a, int b, int c, int d, int t1, int t2, int t3, int t4, int n1, int n2, int n3, int n4) {
 	Cuadrado = true;
 	vertice[0] = a;
 	vertice[1] = b;
@@ -59,12 +59,12 @@ Cara::Cara(int a, int b, int c, int d, int t1, int t2, int t3, int t4, int n1, i
 	normal[3] = n4;
 }
 
-int LoadObject::CaragarWireframe(const char* filename) {
+int LoadObject::SidegarWireframe(const char* filename) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
-	std::vector<Cordenada*> punto;
-	std::vector<Cara*> figura;
-	std::vector<Cordenada*> normale;
+	std::vector<Coordenate*> punto;
+	std::vector<Side*> figura;
+	std::vector<Coordenate*> normale;
 	std::ifstream in(filename);
 	
 	if(!in.is_open()) {
@@ -83,21 +83,21 @@ int LoadObject::CaragarWireframe(const char* filename) {
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == ' ') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "v %f %f %f", &tmpx, &tmpy, &tmpz);
-			punto.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			punto.push_back(new Coordenate(tmpx, tmpy, tmpz));
 			
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == 'n') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "vn %f %f %f", &tmpx, &tmpy, &tmpz);
-			normale.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			normale.push_back(new Coordenate(tmpx, tmpy, tmpz));
 			
 		} else if(tira[i]->c_str()[0] == 'f') {
 			int a, c, d, e, n1, n2, n3, n4;
 			if(count(tira[i]->begin(),tira[i]->end(),' ') == 3) {
 				sscanf(tira[i]->c_str(), "f %d//%d %d//%d %d//%d", &a, &n1, &c, &n2, &d, &n3);
-				figura.push_back(new Cara(a, c, d, n1, n2, n3));
+				figura.push_back(new Side(a, c, d, n1, n2, n3));
 			} else {
 				sscanf(tira[i]->c_str(), "f %d//%d %d//%d %d//%d %d//%d", &a, &n1, &c, &n2, &d, &n3, &e, &n4);
-				figura.push_back(new Cara(a, c, d, e, n1, n2, n3, n4));
+				figura.push_back(new Side(a, c, d, e, n1, n2, n3, n4));
 			}
 		}
 	}
@@ -134,12 +134,12 @@ int LoadObject::CaragarWireframe(const char* filename) {
 	return num;
 }
 
-int LoadObject::CaragarSolid(const char* filename) {
+int LoadObject::SidegarSolid(const char* filename) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
-	std::vector<Cordenada*> punto;
-	std::vector<Cara*> figura;
-	std::vector<Cordenada*> normale;
+	std::vector<Coordenate*> punto;
+	std::vector<Side*> figura;
+	std::vector<Coordenate*> normale;
 	std::ifstream in(filename);
 	
 	if(!in.is_open()) {
@@ -158,21 +158,21 @@ int LoadObject::CaragarSolid(const char* filename) {
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == ' ') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(),"v %f %f %f", &tmpx, &tmpy, &tmpz);
-			punto.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			punto.push_back(new Coordenate(tmpx, tmpy, tmpz));
 
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == 'n') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "vn %f %f %f", &tmpx, &tmpy, &tmpz);
-			normale.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			normale.push_back(new Coordenate(tmpx, tmpy, tmpz));
 
 		} else if(tira[i]->c_str()[0] == 'f') {
 			int a, c, d, e, n1, n2, n3, n4;
 			if(count(tira[i]->begin(), tira[i]->end(),' ') == 3) {
 				sscanf(tira[i]->c_str(), "f %d//%d %d//%d %d//%d", &a, &n1, &c, &n2, &d, &n3);
-				figura.push_back(new Cara(a, c, d, n1, n2, n3));
+				figura.push_back(new Side(a, c, d, n1, n2, n3));
 			} else {
 				sscanf(tira[i]->c_str(), "f %d//%d %d//%d %d//%d %d//%d", &a, &n1, &c, &n2, &d, &n3, &e, &n4);
-				figura.push_back(new Cara(a, c, d, e, n1, n2, n3, n4));
+				figura.push_back(new Side(a, c, d, e, n1, n2, n3, n4));
 			}
 		}
 	}
@@ -227,10 +227,10 @@ int LoadObject::CaragarSolid(const char* filename) {
 int LoadObject::LoadTextureSolid(const char* filename, GLuint imagen) {
 	ofstream Document; Document.open(LOAD_DOCUMENT_PATH);
 	std::vector<std::string*> tira;
-	std::vector<Cordenada*> punto;
-	std::vector<Cara*> figura;
-	std::vector<Cordenada*> normale;
-	std::vector<Cordenada*> textura;
+	std::vector<Coordenate*> punto;
+	std::vector<Side*> figura;
+	std::vector<Coordenate*> normale;
+	std::vector<Coordenate*> textura;
 	std::ifstream in(filename);
 	
 	if(!in.is_open()) {
@@ -249,26 +249,26 @@ int LoadObject::LoadTextureSolid(const char* filename, GLuint imagen) {
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == ' ') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "v %f %f %f", &tmpx, &tmpy, &tmpz);
-			punto.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			punto.push_back(new Coordenate(tmpx, tmpy, tmpz));
 			
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == 'n') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "vn %f %f %f", &tmpx, &tmpy, &tmpz);
-			normale.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			normale.push_back(new Coordenate(tmpx, tmpy, tmpz));
 			
 		} else if(tira[i]->c_str()[0] == 'v' && tira[i]->c_str()[1] == 't') {
 			float tmpx, tmpy, tmpz;
 			sscanf(tira[i]->c_str(), "vt %f %f %f", &tmpx, &tmpy, &tmpz);
-			textura.push_back(new Cordenada(tmpx, tmpy, tmpz));
+			textura.push_back(new Coordenate(tmpx, tmpy, tmpz));
 			
 		} else if(tira[i]->c_str()[0] == 'f') {
 			int a, c, d, e, n1, n2, n3, n4, t1, t2, t3, t4;
 			if(count(tira[i]->begin(),tira[i]->end(), ' ') == 3) {
 				sscanf(tira[i]->c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d", &a, &t1, &n1, &c, &t2, &n2, &d, &t3, &n3);
-				figura.push_back(new Cara(a, c, d, t1, t2, t3, n1, n2, n3));
+				figura.push_back(new Side(a, c, d, t1, t2, t3, n1, n2, n3));
 			} else {
 				sscanf(tira[i]->c_str(), "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d", &a, &t1, &n1, &c, &t2, &n2, &d, &t3, &n3, &e, &t4, &n4);
-				figura.push_back(new Cara(a, c, d, e, t1, t2, t3, t4, n1, n2, n3, n4));
+				figura.push_back(new Side(a, c, d, e, t1, t2, t3, t4, n1, n2, n3, n4));
 			}
 		}
 	}
