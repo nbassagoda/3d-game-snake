@@ -20,7 +20,7 @@ The objective of this app is to develop a variant of 3D Snake game. This game wa
 These instructions will get you a copy of the project up and running on your local machine for development.
 
 ### Prerequisites
-Before you run the app make sure to run the app in a windows device and have the following things installed:
+Before you run the app make sure you are in a windows device and have the following installed:
  - MinGW (make sure to add `C:\MinGW\bin` to the path env variable). 
 
 ### Installing
