@@ -2,15 +2,15 @@
 
 The objective of this app is to develop a variant of 3D Snake game. This game was released in the mid-70s, originally developed for the "Blockade" game console. In the game, the player leads a snake through a board or maze in search of food while having to dodge certain obstacles. Among other things, the game has the following features: 
 
-- Multiple levels, easily customizable 
+- Multiple levels, easily customizable.
 
-- Collision management 
+- Collision management.
 
-- Event management and lighting
+- Event management and lighting.
 
-- Possibility to rotate the camera to change the observation point of view
+- Possibility to rotate the camera to change the observation point of view.
 
-- Makes use of 3D models and textures
+- Makes use of 3D models and textures.
 
 ![ezgif com-optimize (1)](https://user-images.githubusercontent.com/54251435/64484763-ced2d280-d1cb-11e9-953e-58f801f5278e.gif)
 
