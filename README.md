@@ -39,3 +39,4 @@ By now the executable file (snake.exe) should have been created and you will hav
 ### Running
 
 Since all the dynamic libraries are included in the repo, you should be able to run it simply by making double click in the `snake.exe` file
+
