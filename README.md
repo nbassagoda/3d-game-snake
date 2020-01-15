@@ -1,6 +1,10 @@
 # 3D Game - Snake
 
-The objective of this app is to develop a variant of 3D Snake game. This game was released in the mid-70s, originally developed for the "Blockade" game console. In the game, the player leads a snake through a board or maze in search of food while having to dodge certain obstacles. Among other things, the game has the following features: 
+The objective of this app is to develop a variant of 3D Snake game. 
+
+The idea of this project is to master the understanding of the graphics pipeline, that's why I decided to create a game engine from scratch using c and openGL instead of using a commercial game engine like Unity or Unreal.  This approach allowed me to create a lightweight game engine while having control over every aspect of the game.
+
+Snake Game was released in the mid-70s, originally developed for the "Blockade" game console. In the game, the player leads a snake through a board or maze in search of food while having to dodge certain obstacles. Among other things, the game has the following features: 
 
 - Multiple levels, easily customizable.
 
